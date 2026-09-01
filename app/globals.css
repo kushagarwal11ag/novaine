@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 antialiased;
+    font-family: 'Outfit', 'Poppins', sans-serif;
+  }
+}
+
+/* Custom dual-angle image flip effect */
+.product-card:hover .img-side {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.product-card:hover .img-front {
+  opacity: 1;
+  transform: scale(1.05);
+}

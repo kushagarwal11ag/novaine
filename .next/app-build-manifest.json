@@ -1,0 +1,80 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/_not-found/page-868f035f3b75f1ec.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/css/acd8007ea5ce0759.css",
+      "static/chunks/129-2c8837fe644c2575.js",
+      "static/chunks/34-28dd91cab031c3d4.js",
+      "static/chunks/app/layout-9d3b89f0f2b56e88.js"
+    ],
+    "/about/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/about/page-1ef84a2f3f3b4319.js"
+    ],
+    "/bicycles/[id]/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/129-2c8837fe644c2575.js",
+      "static/chunks/app/bicycles/[id]/page-12fca3135163de98.js"
+    ],
+    "/bicycles/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/129-2c8837fe644c2575.js",
+      "static/chunks/app/bicycles/page-279f1c03fe2feb87.js"
+    ],
+    "/become-a-dealer/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/become-a-dealer/page-e694c7cd611a305d.js"
+    ],
+    "/warranty/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/warranty/page-4c33afef2e55eeac.js"
+    ],
+    "/contact/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/contact/page-9cf659cc533a769e.js"
+    ],
+    "/faq/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/app/faq/page-3e416281886d5881.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-c81f7fd28659d64f.js",
+      "static/chunks/fd9d1056-86bacdcf9105a5f7.js",
+      "static/chunks/117-67099e47be104ef6.js",
+      "static/chunks/main-app-3973bc277f5acfe5.js",
+      "static/chunks/129-2c8837fe644c2575.js",
+      "static/chunks/app/page-839889e3f52c01ff.js"
+    ]
+  }
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warranty Policy | Novaine Bikes - V&U Industries</title>
+  <meta name="description" content="Warranty policy, coverage details, and warranty registration for Novaine Bikes by V&U Industries Ludhiana Punjab.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  
+  <!-- Top Utility Bar -->
+  <div class="top_utility_bar">
+    <div class="top_utility_container">
+      <div class="top_utility_left">
+        <span class="top_utility_item"><i class="fas fa-industry"></i> <b>V&U Industries</b> - Ludhiana, Punjab - 141003</span>
+        <span class="top_divider"></span>
+        <a href="https://wa.me/919053014084" target="_blank" class="top_utility_item"><i class="fab fa-whatsapp"></i> +91 90530 14084</a>
+      </div>
+      <div class="top_utility_right">
+        <span class="top_badge"><i class="fas fa-check-circle"></i> ISO 9001 Certified Factory</span>
+        <a href="become-a-dealer.html" class="top_utility_item"><i class="fas fa-handshake"></i> Become A Dealer</a>
+        <a href="contact.html" class="top_utility_item"><i class="fas fa-headset"></i> Support</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="main_header">
+    <div class="nav_container">
+      <a href="index.html" class="brand_logo_wrapper">
+        <img src="assets/images/novaine_logo.png" alt="Novaine Bikes - V&U Industries" class="brand_logo_img">
+      </a>
+
+      <ul class="nav_menu">
+        <li class="nav_menu_item">
+          <a href="index.html" class="nav_link ">Home</a>
+        </li>
+        <li class="nav_menu_item">
+          <a href="bicycles.html" class="nav_link ">
+            Bicycles <i class="fas fa-chevron-down"></i>
+          </a>
+          <div class="nav_dropdown">
+            <a href="bicycles.html?cat=kids"><i class="fas fa-child"></i> Kids Bikes (14T, 16T, 20T)</a>
+            <a href="bicycles.html?cat=ranger"><i class="fas fa-mountain"></i> Ranger & MTB (24T, 26T)</a>
+            <a href="bicycles.html?cat=city"><i class="fas fa-city"></i> City & Commuter</a>
+            <a href="bicycles.html"><i class="fas fa-th-large"></i> View All Models</a>
+          </div>
+        </li>
+        <li class="nav_menu_item">
+          <a href="bicycles.html?cat=kids" class="nav_link">Kids Range</a>
+        </li>
+        <li class="nav_menu_item">
+          <a href="bicycles.html?cat=ranger" class="nav_link">Ranger Series</a>
+        </li>
+        <li class="nav_menu_item">
+          <a href="about.html" class="nav_link ">About Us</a>
+        </li>
+        <li class="nav_menu_item">
+          <a href="become-a-dealer.html" class="nav_link ">Dealership</a>
+        </li>
+        <li class="nav_menu_item">
+          <a href="contact.html" class="nav_link ">Contact Us</a>
+        </li>
+      </ul>
+
+      <div class="header_actions">
+        <div class="header_search_box">
+          <input type="text" id="headerSearchInput" class="header_search_input" placeholder="Search Kombat, Hunt, 24T...">
+          <button class="header_search_btn"><i class="fas fa-search"></i></button>
+          <div id="liveSearchResults" class="live_search_results"></div>
+        </div>
+
+        <button class="header_btn header_btn_accent" onclick="openEnquiryModal('General Enquiry')">
+          <i class="fas fa-envelope"></i> Quick Enquiry
+        </button>
+
+        <button class="mobile_nav_toggle" onclick="toggleMobileNav(true)" aria-label="Open Navigation Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Side Drawer -->
+  <div id="sideNavBackdrop" class="side_nav_backdrop" onclick="toggleMobileNav(false)"></div>
+  <aside id="sideNavDrawer" class="side_nav_drawer">
+    <div class="side_nav_header">
+      <img src="assets/images/novaine_logo.png" alt="Novaine Bikes" style="height: 38px;">
+      <button class="side_nav_close" onclick="toggleMobileNav(false)"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="side_nav_body">
+      <a href="index.html" class="side_nav_item"><i class="fas fa-home"></i> Home</a>
+      <a href="bicycles.html" class="side_nav_item"><i class="fas fa-bicycle"></i> All Bicycles</a>
+      <a href="bicycles.html?cat=kids" class="side_nav_item"><i class="fas fa-child"></i> Kids Bikes (14T, 16T, 20T)</a>
+      <a href="bicycles.html?cat=ranger" class="side_nav_item"><i class="fas fa-mountain"></i> Ranger Bikes (24T, 26T)</a>
+      <a href="about.html" class="side_nav_item"><i class="fas fa-building"></i> About V&U Industries</a>
+      <a href="become-a-dealer.html" class="side_nav_item"><i class="fas fa-handshake"></i> Become A Dealer</a>
+      <a href="contact.html" class="side_nav_item"><i class="fas fa-phone-alt"></i> Contact Us</a>
+      <a href="warranty.html" class="side_nav_item"><i class="fas fa-shield-alt"></i> Warranty Policy</a>
+      <a href="faq.html" class="side_nav_item"><i class="fas fa-question-circle"></i> FAQ</a>
+    </div>
+    <div class="side_nav_footer">
+      <div style="font-size: 13px; font-weight: 700; color: #111827; margin-bottom: 4px;">V&U Industries</div>
+      <div style="font-size: 12px; color: #6b7280;">Ludhiana, Punjab - 141003</div>
+      <div style="margin-top: 12px;">
+        <a href="https://wa.me/919053014084" target="_blank" class="header_btn header_btn_gold" style="width: 100%; justify-content: center;">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+
+  <div style="background: linear-gradient(135deg, #111827 0%, #1f2937 100%); color: white; padding: 48px 0; text-align: center;">
+    <div class="container">
+      <span style="font-size: 13px; color: var(--colorGold); font-weight: 700; text-transform: uppercase;">Quality Assurance</span>
+      <h1 style="font-size: clamp(2rem, 3.5vw, 2.6rem); font-weight: 800; margin-top: 8px;">Novaine Bikes <span>Warranty Policy</span></h1>
+      <p style="color: #cbd5e1; font-size: 15px; margin-top: 6px;">Guaranteed craftsmanship from V&U Industries - Ludhiana, Punjab - 141003.</p>
+    </div>
+  </div>
+
+  <section class="section_padding">
+    <div class="container" style="max-width: 900px;">
+      <div style="background: white; border: 1px solid var(--colorBorder); border-radius: var(--radiusLg); padding: 36px; box-shadow: var(--shadowSm);">
+        
+        <h3 style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 12px;">1. Frame & Rigid Fork Warranty</h3>
+        <p style="color: #4b5563; font-size: 14.5px; line-height: 1.7; margin-bottom: 24px;">
+          All Novaine bicycle frames manufactured by V&U Industries come with a <b>Lifetime Structural Warranty</b> against manufacturing defects and weld failures under normal riding conditions.
+        </p>
+
+        <h3 style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 12px;">2. Suspension & Mechanical Components</h3>
+        <p style="color: #4b5563; font-size: 14.5px; line-height: 1.7; margin-bottom: 24px;">
+          Suspension forks, mechanical disc calipers, gear shifters, and derailleurs are covered under a <b>1-Year Replacement / Repair Guarantee</b> against defects in material or workmanship.
+        </p>
+
+        <h3 style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 12px;">3. How To Claim Warranty</h3>
+        <p style="color: #4b5563; font-size: 14.5px; line-height: 1.7; margin-bottom: 24px;">
+          To register or claim warranty, simply contact your nearest authorized Novaine Bikes dealer or message our Ludhiana customer service desk on WhatsApp at <b>+91 90530 14084</b> along with your invoice copy and frame serial number.
+        </p>
+
+        <div style="text-align: center; margin-top: 30px;">
+          <button class="hero_btn_primary" onclick="openEnquiryModal('Warranty Assistance')">
+            <i class="fab fa-whatsapp"></i> Register / Claim Warranty
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Dealer / Bulk Order CTA -->
+  <section class="dealer_cta_section">
+    <div class="container">
+      <div class="dealer_cta_box">
+        <div class="dealer_cta_content">
+          <h3>Partner with Novaine Bikes (V&U Industries)</h3>
+          <p>Join India's fastest growing bicycle network with premium margins, robust warranty, and marketing support.</p>
+        </div>
+        <div class="dealer_cta_buttons">
+          <a href="become-a-dealer.html" class="hero_btn_primary"><i class="fas fa-user-plus"></i> Become A Dealer</a>
+          <button class="hero_btn_secondary" style="border-color: #8e147e; color: #8e147e;" onclick="openEnquiryModal('Bulk Order Inquiry')">
+            <i class="fas fa-boxes"></i> Buy in Bulk
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Footer -->
+  <footer class="main_footer">
+    <div class="container">
+      <div class="footer_grid">
+        <div class="footer_brand_col">
+          <img src="assets/images/novaine_logo.png" alt="Novaine Bikes Logo" class="footer_logo_img">
+          <div class="footer_company_name">V&U Industries</div>
+          <div class="footer_company_address">
+            <i class="fas fa-map-marker-alt" style="color: var(--colorGold); margin-right: 6px;"></i>
+            Industrial Focal Point, Ludhiana, Punjab - 141003, India
+          </div>
+          <p class="footer_about_text">
+            Novaine Bikes by V&U Industries are proudly designed and manufactured in Ludhiana, Punjab for riders across India and the globe. Engineered for supreme safety, joyful performance, and lasting endurance.
+          </p>
+          <div class="footer_socials">
+            <a href="https://instagram.com" target="_blank" class="social_btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com" target="_blank" class="social_btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/919053014084" target="_blank" class="social_btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="social_btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://youtube.com" target="_blank" class="social_btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer_col_heading">Popular Models</div>
+          <ul class="footer_links">
+            <li><a href="product-detail.html?model=kombat"><i class="fas fa-angle-right"></i> Kombat (14T, 16T, 20T)</a></li>
+            <li><a href="product-detail.html?model=magnet"><i class="fas fa-angle-right"></i> Magnet (14T, 16T, 20T)</a></li>
+            <li><a href="product-detail.html?model=boomer"><i class="fas fa-angle-right"></i> Boomer (14T, 16T, 20T)</a></li>
+            <li><a href="product-detail.html?model=hunt"><i class="fas fa-angle-right"></i> Hunt (24T, 26T)</a></li>
+            <li><a href="product-detail.html?model=hunt-pro"><i class="fas fa-angle-right"></i> Hunt Pro (24T, 26T)</a></li>
+            <li><a href="product-detail.html?model=cyclone"><i class="fas fa-angle-right"></i> Cyclone (24T, 26T)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer_col_heading">Quick Links</div>
+          <ul class="footer_links">
+            <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+            <li><a href="bicycles.html"><i class="fas fa-angle-right"></i> All Bicycles</a></li>
+            <li><a href="become-a-dealer.html"><i class="fas fa-angle-right"></i> Dealership</a></li>
+            <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact & Support</a></li>
+            <li><a href="warranty.html"><i class="fas fa-angle-right"></i> Warranty Policy</a></li>
+            <li><a href="faq.html"><i class="fas fa-angle-right"></i> FAQ & Guide</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer_col_heading">Product Catalogues</div>
+          <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Download our official 2026 range brochures:</p>
+          <a href="javascript:void(0)" onclick="alert('Downloading Novaine Bicycles 2026 Full Range Catalogue PDF...')" class="footer_catalog_btn">
+            <i class="fas fa-file-pdf"></i>
+            <span>Bicycles Catalogue 2026</span>
+          </a>
+          <a href="javascript:void(0)" onclick="alert('Downloading Novaine Kids Special Edition Catalogue PDF...')" class="footer_catalog_btn">
+            <i class="fas fa-file-pdf"></i>
+            <span>Kids Range Catalogue</span>
+          </a>
+          <a href="javascript:void(0)" onclick="alert('Downloading Novaine Accessories & Spares Brochure PDF...')" class="footer_catalog_btn">
+            <i class="fas fa-file-pdf"></i>
+            <span>Accessories Catalogue</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer_bottom_bar">
+      <div class="container">
+        <b>COPYRIGHT 2026 © V&U Industries | Novaine Bikes. All rights reserved.</b>
+        <div style="font-size: 11.5px; margin-top: 4px; color: #94a3b8;">
+          Ludhiana, Punjab - 141003 | Precision Bicycle Manufacturing in India
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp FAB -->
+  <a href="https://wa.me/919053014084" target="_blank" class="whatsapp_fab" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Quick Enquiry Modal Dialog -->
+  <div id="enquiryModal" class="modal_backdrop">
+    <div class="modal_box">
+      <div class="modal_header">
+        <h3><i class="fas fa-bicycle" style="color: var(--colorGold); margin-right: 8px;"></i> Product Enquiry</h3>
+        <button class="modal_close" onclick="closeEnquiryModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <form class="modal_body" onsubmit="handleEnquirySubmit(event)">
+        <div class="form_group">
+          <label class="form_label">Selected Model</label>
+          <input type="text" id="enquiryModelInput" name="model" class="form_control" value="Novaine Kombat" required>
+        </div>
+        <div class="form_group">
+          <label class="form_label">Your Full Name</label>
+          <input type="text" name="fullName" class="form_control" placeholder="Enter your full name" required>
+        </div>
+        <div class="form_group">
+          <label class="form_label">Phone / WhatsApp Number</label>
+          <input type="tel" name="phone" class="form_control" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="form_group">
+          <label class="form_label">City & State</label>
+          <input type="text" name="city" class="form_control" placeholder="e.g. Ludhiana, Punjab" required>
+        </div>
+        <div class="form_group">
+          <label class="form_label">Enquiry Message / Requirement</label>
+          <textarea name="note" class="form_control" rows="2" placeholder="Let us know size preference, quantity, or dealership interest..."></textarea>
+        </div>
+        <button type="submit" class="hero_btn_primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+          <i class="fab fa-whatsapp"></i> Send Enquiry to V&U Industries
+        </button>
+      </form>
+    </div>
+  </div>
+  
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
