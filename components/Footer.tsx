@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, FileText, ChevronRight, Handshake } from "lucide-react";
+import { MapPin, FileText, ChevronRight } from "lucide-react";
+import { Facebook, Instagram, Whatsapp, Youtube } from "iconic-react";
 import { useEnquiry } from "@/context/EnquiryContext";
 
 export default function Footer() {
@@ -10,13 +11,11 @@ export default function Footer() {
 
 	return (
 		<>
-
 			{/* Main Multi-column Footer */}
 			<footer className="bg-slate-950 text-slate-400 text-sm pt-16 pb-8 border-t border-slate-900">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-900">
 					{/* Brand Info */}
 					<div className="space-y-4">
-						
 						<div className="font-bold text-white text-base">
 							V&U Industries
 						</div>
@@ -26,74 +25,10 @@ export default function Footer() {
 							Punjab,India - 141003.
 						</p>
 						<p className="text-xs leading-relaxed text-slate-400">
-							Novaine Bikes are proudly
-							manufactured in India with decades of cycling
-							engineering excellence, delivering unmatched
-							durability, ergonomic comfort, and modern styling.
+							Novaine Bikes are proudly made in India for the
+							world—designed to make cycling safe, enjoyable, and
+							convenient for people of all ages.
 						</p>
-					</div>
-
-					{/* Popular Models */}
-					<div>
-						<h4 className="font-bold text-white text-base mb-4 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-novaine-yellow">
-							Popular Models
-						</h4>
-						<ul className="space-y-2 text-xs">
-							<li>
-								<Link
-									href="/bicycles/kombat"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Kombat
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/bicycles/magnet"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Magnet
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/bicycles/boomer"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Boomer
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/bicycles/hunt"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Hunt
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/bicycles/hunt-pro"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Hunt Pro
-								</Link>
-							</li>
-							<li>
-								<Link
-									href="/bicycles/cyclone"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Cyclone
-								</Link>
-							</li>
-						</ul>
 					</div>
 
 					{/* Quick Links */}
@@ -113,22 +48,22 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="/bicycles"
+									href="/warranty"
 									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
 								>
 									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Full Bicycle Catalog
+									Warranty Policy
 								</Link>
 							</li>
-							<li>
-								<Link
-									href="/become-a-dealer"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Dealership Registration
-								</Link>
-							</li>
+						</ul>
+					</div>
+
+					{/* Info */}
+					<div>
+						<h4 className="font-bold text-white text-base mb-4 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-8 after:h-0.5 after:bg-novaine-yellow">
+							Info
+						</h4>
+						<ul className="space-y-2 text-xs">
 							<li>
 								<Link
 									href="/contact"
@@ -140,20 +75,29 @@ export default function Footer() {
 							</li>
 							<li>
 								<Link
-									href="/warranty"
-									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
-								>
-									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
-									Warranty Registration
-								</Link>
-							</li>
-							<li>
-								<Link
 									href="/faq"
 									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
 								>
 									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
 									Sizing & FAQ Guide
+								</Link>
+							</li>
+							<li>
+								<Link
+									href="/policy"
+									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+								>
+									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
+									Policy
+								</Link>
+							</li>
+							<li>
+								<Link
+									href="/disclaimer"
+									className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+								>
+									<ChevronRight className="w-3 h-3 text-novaine-purple" />{" "}
+									Disclaimer
 								</Link>
 							</li>
 						</ul>
@@ -170,9 +114,7 @@ export default function Footer() {
 						<div className="space-y-2">
 							<button
 								onClick={() =>
-									alert(
-										"Downloading Novaine Bicycles 2026 Full Range Catalogue PDF...",
-									)
+									alert("Downloading Bicycles catalogue")
 								}
 								className="w-full flex items-center justify-between bg-slate-900 hover:bg-novaine-purple border border-slate-800 hover:border-novaine-purple px-3 py-2 rounded-lg text-xs font-semibold text-slate-200 transition-colors"
 							>
@@ -186,20 +128,48 @@ export default function Footer() {
 							</button>
 							<button
 								onClick={() =>
-									alert(
-										"Downloading Novaine Kids Special Edition Catalogue PDF...",
-									)
+									alert("Downloading Spare Parts catalogue")
 								}
 								className="w-full flex items-center justify-between bg-slate-900 hover:bg-novaine-purple border border-slate-800 hover:border-novaine-purple px-3 py-2 rounded-lg text-xs font-semibold text-slate-200 transition-colors"
 							>
 								<span className="flex items-center gap-2">
 									<FileText className="w-4 h-4 text-novaine-yellow" />{" "}
-									Kids Collection 2026
+									Spare Parts Collection 2026
 								</span>
 								<span className="text-[10px] text-slate-400">
 									PDF
 								</span>
 							</button>
+						</div>
+					</div>
+					<div className="flex flex-col gap-2">
+						Follow us on socials
+						<div className="flex items-center gap-2">
+							<Link
+								href="#"
+								className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+							>
+								<Facebook variant="Bold" size="20" />
+							</Link>
+
+							<Link
+								href="#"
+								className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+							>
+								<Instagram variant="Bold" size="20" />
+							</Link>
+							<Link
+								href="#"
+								className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+							>
+								<Whatsapp variant="Bold" size="20" />
+							</Link>
+							<Link
+								href="#"
+								className="hover:text-novaine-yellow transition-colors inline-flex items-center gap-1"
+							>
+								<Youtube variant="Bold" size="20" />
+							</Link>
 						</div>
 					</div>
 				</div>

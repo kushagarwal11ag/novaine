@@ -220,7 +220,7 @@ export default function HomePage() {
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
-							<div className="w-16 h-16 rounded-full bg-white/5 border border-novaine-yellow/40 flex items-center justify-center mx-auto mb-5">
+							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
 								<img
 									src="/assets/images/green-building-icon.png"
 									alt="Green Building"
@@ -242,7 +242,7 @@ export default function HomePage() {
 						</div>
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
-							<div className="w-16 h-16 rounded-full bg-novaine-yellow/20 border border-novaine-yellow/40 flex items-center justify-center mx-auto mb-5">
+							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
 								<img
 									src="/assets/images/30-years-icon.png"
 									alt="30+ Years Heritage"
@@ -262,7 +262,7 @@ export default function HomePage() {
 						</div>
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
-							<div className="w-16 h-16 rounded-full bg-novaine-yellow/20 border border-novaine-yellow/40 flex items-center justify-center mx-auto mb-5">
+							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
 								<img
 									src="/assets/images/support-icon.png"
 									alt="Hassle Free Support"

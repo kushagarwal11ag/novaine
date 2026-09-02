@@ -237,7 +237,7 @@ export default function Header() {
 						</div>
 
 						<button
-							onClick={() => openEnquiry("General Enquiry")}
+							onClick={() => openEnquiry()}
 							className="hidden sm:inline-flex items-center gap-1.5 bg-novaine-purple hover:bg-novaine-purple-dark text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full shadow-sm hover:shadow transition-all"
 						>
 							<Mail className="w-4 h-4" /> Quick Enquiry
