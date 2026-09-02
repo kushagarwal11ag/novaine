@@ -10,52 +10,13 @@ export default function Footer() {
 
 	return (
 		<>
-			{/* Dealership & Bulk Order CTA Banner */}
-			<section className="bg-gradient-to-r from-novaine-purple-light via-pink-50 to-novaine-yellow-light border-y border-pink-200 py-12">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-					<div>
-						<span className="text-xs font-bold uppercase tracking-wider text-novaine-purple bg-white px-3 py-1 rounded-full shadow-sm">
-							Dealership Opportunities
-						</span>
-						<h3 className="text-2xl sm:text-3xl font-extrabold text-gray-950 mt-2">
-							Partner with Novaine Bikes
-						</h3>
-						<p className="text-gray-600 text-sm mt-1 max-w-2xl">
-							Join India's premier bicycle distribution network.
-							High trade margins, robust warranty protection, and
-							direct factory dispatch from Ludhiana, Punjab.
-						</p>
-					</div>
-
-					<div className="flex flex-wrap items-center gap-3 shrink-0">
-						<Link
-							href="/become-a-dealer"
-							className="inline-flex items-center gap-2 bg-novaine-purple hover:bg-novaine-purple-dark text-white text-sm font-bold px-6 py-3 rounded-full shadow-md transition-all"
-						>
-							<Handshake className="w-4 h-4" /> Become A Dealer
-						</Link>
-						<button
-							onClick={() => openEnquiry("Bulk Order Inquiry")}
-							className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-novaine-purple border border-novaine-purple text-sm font-bold px-6 py-3 rounded-full shadow-sm transition-all"
-						>
-							Buy In Bulk
-						</button>
-					</div>
-				</div>
-			</section>
 
 			{/* Main Multi-column Footer */}
 			<footer className="bg-slate-950 text-slate-400 text-sm pt-16 pb-8 border-t border-slate-900">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-900">
 					{/* Brand Info */}
 					<div className="space-y-4">
-						<div className="bg-white p-2.5 rounded-lg inline-block">
-							<img
-								src="/assets/images/novaine_logo.svg"
-								alt="Novaine Bikes Logo"
-								className="h-14 w-auto"
-							/>
-						</div>
+						
 						<div className="font-bold text-white text-base">
 							V&U Industries
 						</div>
@@ -252,8 +213,7 @@ export default function Footer() {
 						All rights reserved.
 					</div>
 					<div className="text-slate-400">
-						Ludhiana, Punjab - 141003 | Precision Bicycle
-						Engineering in India
+						Ludhiana, Punjab - 141003
 					</div>
 				</div>
 			</footer>

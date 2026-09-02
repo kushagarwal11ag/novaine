@@ -75,13 +75,7 @@ export default function Header() {
 					</div>
 
 					<div className="flex items-center gap-4 text-xs">
-						<Link
-							href="/become-a-dealer"
-							className="inline-flex items-center gap-1 hover:text-novaine-yellow transition-colors"
-						>
-							<Handshake className="w-3.5 h-3.5 text-novaine-yellow" />{" "}
-							Become A Dealer
-						</Link>
+						
 						<Link
 							href="/contact"
 							className="hover:text-novaine-yellow transition-colors"
@@ -173,18 +167,6 @@ export default function Header() {
 							}
 						>
 							About Us
-						</Link>
-
-						<Link
-							href="/become-a-dealer"
-							className={
-								"text-sm font-semibold transition-colors " +
-								(pathname === "/become-a-dealer"
-									? "text-novaine-purple"
-									: "text-gray-800 hover:text-novaine-purple")
-							}
-						>
-							Dealership
 						</Link>
 
 						<Link

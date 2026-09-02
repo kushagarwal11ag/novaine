@@ -6,7 +6,7 @@ import { Whatsapp } from 'iconic-react';
 export default function WhatsAppFab() {
   return (
     <a
-      href="https://wa.me/919053014084?text=Hello%20Novaine%20Bikes%20(V%26U%20Industries)!%20I%20would%20like%20to%20know%20more%20about%20your%20bicycles."
+      href="https://wa.me/+918758216246?text=Hello%20Novaine%20Bikes,%20I%20would%20like%20to%20know%20more%20about%20your%20bicycles."
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"

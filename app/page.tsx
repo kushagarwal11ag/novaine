@@ -5,10 +5,7 @@ import Link from "next/link";
 import HeroSlider from "@/components/HeroSlider";
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/products";
-import {
-	ArrowRight,
-	Factory,
-} from "lucide-react";
+import { ArrowRight, Factory } from "lucide-react";
 
 export default function HomePage() {
 	const kidsBikes = PRODUCTS.filter((p) => p.categorySlug === "kids");
@@ -93,7 +90,6 @@ export default function HomePage() {
 								</span>
 							</div>
 						</Link>
-
 					</div>
 				</div>
 			</section>
@@ -110,8 +106,7 @@ export default function HomePage() {
 								Popular{" "}
 								<span className="text-novaine-purple">
 									Kids Bikes
-								</span>{" "}
-								(14T, 16T, 20T)
+								</span>
 							</h2>
 						</div>
 						<Link
@@ -145,11 +140,10 @@ export default function HomePage() {
 							</h2>
 							<p className="text-gray-200 text-sm leading-relaxed mb-6">
 								With decades of cycling engineering expertise,
-								we build every Novaine bicycle
-								under strict quality controls. Precise frame
-								alignment, multi-stage eco phosphate coating, and
-								precision testing ensure unmatched safety and
-								longevity.
+								we build every Novaine bicycle under strict
+								quality controls. Precise frame alignment,
+								multi-stage eco phosphate coating, and precision
+								testing ensure unmatched safety and longevity.
 							</p>
 							<div className="flex flex-wrap items-center gap-4">
 								<Link
@@ -157,12 +151,6 @@ export default function HomePage() {
 									className="bg-white text-gray-950 hover:bg-gray-100 text-xs sm:text-sm font-bold px-6 py-3 rounded-full transition-all"
 								>
 									Our Manufacturing Story
-								</Link>
-								<Link
-									href="/become-a-dealer"
-									className="bg-novaine-yellow text-gray-950 hover:bg-novaine-yellow-hover text-xs sm:text-sm font-bold px-6 py-3 rounded-full transition-all"
-								>
-									Partner With Us
 								</Link>
 							</div>
 						</div>
@@ -190,8 +178,7 @@ export default function HomePage() {
 								Popular{" "}
 								<span className="text-novaine-purple">
 									Ranger Models
-								</span>{" "}
-								(24T & 26T)
+								</span>
 							</h2>
 						</div>
 						<Link
@@ -219,7 +206,7 @@ export default function HomePage() {
 							The Novaine Promise
 						</span>
 						<h2 className="text-3xl sm:text-4xl font-black text-white mt-2 tracking-tight">
-							Why Riders & Dealers{" "}
+							Why Riders{" "}
 							<span className="text-novaine-yellow">
 								Choose Novaine
 							</span>
@@ -233,7 +220,7 @@ export default function HomePage() {
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
-							<div className="w-16 h-16 rounded-full bg-novaine-yellow/20 border border-novaine-yellow/40 flex items-center justify-center mx-auto mb-5">
+							<div className="w-16 h-16 rounded-full bg-white/5 border border-novaine-yellow/40 flex items-center justify-center mx-auto mb-5">
 								<img
 									src="/assets/images/green-building-icon.png"
 									alt="Green Building"
