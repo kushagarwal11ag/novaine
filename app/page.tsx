@@ -250,7 +250,7 @@ export default function HomePage() {
 								/>
 							</div>
 							<h3 className="text-lg font-bold text-white mb-2">
-								30+ Years{" "}
+								10+ Years{" "}
 								<span className="text-novaine-yellow">
 									Excellence
 								</span>

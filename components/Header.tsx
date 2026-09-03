@@ -75,7 +75,6 @@ export default function Header() {
 					</div>
 
 					<div className="flex items-center gap-4 text-xs">
-						
 						<Link
 							href="/contact"
 							className="hover:text-novaine-yellow transition-colors"
@@ -90,17 +89,20 @@ export default function Header() {
 			<header className="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-100">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 					{/* Brand Logo */}
-          <nav className="hidden lg:flex items-center gap-7">
-					<Link href="/" className="flex items-center gap-3 shrink-0">
-						<img
-							src="/assets/images/novaine_logo.svg"
-							alt="Novaine Bikes"
-							className="h-16 w-auto object-contain"
-						/>
-					</Link>
+					<nav className="hidden lg:flex items-center gap-7">
+						<Link
+							href="/"
+							className="flex items-center gap-3 shrink-0"
+						>
+							<img
+								src="/assets/images/novaine_logo.svg"
+								alt="Novaine Bikes"
+								className="h-16 w-auto object-contain"
+							/>
+						</Link>
 
-					{/* Desktop Nav Links */}
-					
+						{/* Desktop Nav Links */}
+
 						<Link
 							href="/"
 							className={
@@ -183,10 +185,10 @@ export default function Header() {
 					</nav>
 
 					{/* Search Bar & Actions */}
-					<div className="flex items-center gap-3">
+					<div className="flex w-full lg:w-auto items-center justify-between lg:justify-end gap-3">
 						<div
 							ref={searchRef}
-							className="relative hidden sm:block w-56 md:w-64"
+							className="relative hidden lg:block w-56 xl:w-64"
 						>
 							<input
 								type="text"
@@ -238,33 +240,40 @@ export default function Header() {
 
 						<button
 							onClick={() => openEnquiry()}
-							className="hidden sm:inline-flex items-center gap-1.5 bg-novaine-purple hover:bg-novaine-purple-dark text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full shadow-sm hover:shadow transition-all"
+							className="hidden lg:inline-flex items-center gap-1.5 bg-novaine-purple hover:bg-novaine-purple-dark text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full shadow-sm hover:shadow transition-all"
 						>
 							<Mail className="w-4 h-4" /> Quick Enquiry
 						</button>
 
 						{/* Mobile Hamburger Button */}
-						<button
-							onClick={() => setMobileMenuOpen(true)}
-							className="lg:hidden p-2 text-gray-700 hover:text-novaine-purple focus:outline-none"
-							aria-label="Toggle menu"
-						>
-							<Menu className="w-6 h-6" />
-						</button>
+						<div className="lg:hidden flex w-full items-center justify-between">
+							<button
+								onClick={() => setMobileMenuOpen(true)}
+								className="p-2 text-gray-700 hover:text-novaine-purple focus:outline-none"
+								aria-label="Toggle menu"
+							>
+								<Menu className="w-6 h-6" />
+							</button>
+							<img
+								src="/assets/images/novaine_logo.svg"
+								alt="Novaine Bikes"
+								className="h-16 w-auto"
+							/>
+						</div>
 					</div>
 				</div>
 			</header>
 
 			{/* Mobile Drawer Menu */}
 			{mobileMenuOpen && (
-				<div className="fixed inset-0 z-50 flex lg:hidden">
+				<div className="fixed inset-0 z-50 flex lg:hidden h-full w-full overflow-hidden">
 					<div
 						className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
 						onClick={() => setMobileMenuOpen(false)}
 					></div>
 
-					<div className="relative w-80 max-w-[85vw] bg-white h-full shadow-2xl flex flex-col z-10">
-						<div className="p-4 border-b border-gray-100 flex items-center justify-between">
+					<div className="relative w-80 bg-white h-full shadow-2xl flex flex-col">
+						<div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
 							<img
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
@@ -278,17 +287,17 @@ export default function Header() {
 							</button>
 						</div>
 
-						<div className="p-4 border-b border-gray-100">
+						<div className="p-4 border-b border-gray-100 bg-white">
 							<input
 								type="text"
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
 								placeholder="Search models..."
-								className="w-full bg-gray-100 text-sm px-4 py-2 rounded-lg outline-none"
+								className="w-full bg-gray-100 text-xs sm:text-sm px-3.5 py-2 rounded-lg outline-none focus:ring-1 focus:ring-novaine-purple"
 							/>
 						</div>
 
-						<nav className="flex-1 overflow-y-auto p-4 space-y-2">
+						<nav className="flex-1 min-h-0 max-h-fit overflow-y-auto p-4 space-y-1.5 overscroll-contain">
 							<Link
 								href="/"
 								onClick={() => setMobileMenuOpen(false)}
@@ -304,39 +313,11 @@ export default function Header() {
 								All Bicycles
 							</Link>
 							<Link
-								href="/bicycles?cat=kids"
-								onClick={() => setMobileMenuOpen(false)}
-								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
-							>
-								Kids Series (14T, 16T, 20T)
-							</Link>
-							<Link
-								href="/bicycles?cat=ranger"
-								onClick={() => setMobileMenuOpen(false)}
-								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
-							>
-								Ranger Series (24T, 26T)
-							</Link>
-							<Link
 								href="/about"
 								onClick={() => setMobileMenuOpen(false)}
 								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
 							>
-								About V&U Industries
-							</Link>
-							<Link
-								href="/become-a-dealer"
-								onClick={() => setMobileMenuOpen(false)}
-								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
-							>
-								Become A Dealer
-							</Link>
-							<Link
-								href="/contact"
-								onClick={() => setMobileMenuOpen(false)}
-								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
-							>
-								Contact Us
+								About Us
 							</Link>
 							<Link
 								href="/warranty"
@@ -352,9 +333,16 @@ export default function Header() {
 							>
 								FAQ
 							</Link>
+							<Link
+								href="/contact"
+								onClick={() => setMobileMenuOpen(false)}
+								className="block px-3 py-2.5 rounded-lg text-sm font-semibold text-gray-800 hover:bg-novaine-purple-light hover:text-novaine-purple"
+							>
+								Contact Us
+							</Link>
 						</nav>
 
-						<div className="p-4 bg-gray-50 border-t border-gray-100">
+						<div className="hidden min-[380px]:flex flex-col mt-auto p-4 bg-gray-50 border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
 							<div className="text-xs font-bold text-gray-900">
 								V&U Industries
 							</div>
@@ -362,7 +350,7 @@ export default function Header() {
 								Ludhiana, Punjab - 141003
 							</div>
 							<a
-								href="https://wa.me/919053014084"
+								href="https://wa.me/918758216246"
 								target="_blank"
 								rel="noreferrer"
 								className="mt-3 w-full inline-flex items-center justify-center gap-2 bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-lg shadow-sm"
