@@ -1,68 +1,136 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, Send } from "lucide-react";
+import { X, Send, AlertCircle } from "lucide-react";
 import { useEnquiry } from "@/context/EnquiryContext";
+
+interface FormErrors {
+	fullName?: string;
+	phone?: string;
+	city?: string;
+}
 
 export default function EnquiryModal() {
 	const { isOpen, closeEnquiry } = useEnquiry();
-	const [model, setModel] = useState("");
 	const [fullName, setFullName] = useState("");
 	const [phone, setPhone] = useState("");
 	const [city, setCity] = useState("");
 	const [note, setNote] = useState("");
 
+	// Error state for validation
+	const [errors, setErrors] = useState<FormErrors>({});
+
 	if (!isOpen) return null;
+
+	// Validation Logic
+	const validateForm = (): boolean => {
+		const newErrors: FormErrors = {};
+
+		// 1. Full Name Validation
+		const trimmedName = fullName.trim();
+		if (!trimmedName) {
+			newErrors.fullName = "Full Name is required.";
+		} else if (trimmedName.length < 2) {
+			newErrors.fullName = "Name must be at least 2 characters.";
+		} else if (!/^[a-zA-Z\s.'-]+$/.test(trimmedName)) {
+			newErrors.fullName = "Please enter a valid name (letters only).";
+		}
+
+		// 2. WhatsApp / Phone Validation (10 digits starting with 6, 7, 8, 9)
+		const cleanPhone = phone.replace(/[\s\-()]/g, "");
+		const indianPhoneRegex = /^(?:\+91|91|0)?[6-9]\d{9}$/;
+
+		if (!cleanPhone) {
+			newErrors.phone = "WhatsApp number is required.";
+		} else if (!indianPhoneRegex.test(cleanPhone)) {
+			newErrors.phone = "Please enter a valid 10-digit mobile number.";
+		}
+
+		// 3. City / State Validation
+		const trimmedCity = city.trim();
+		if (!trimmedCity) {
+			newErrors.city = "City / State is required.";
+		} else if (trimmedCity.length < 2) {
+			newErrors.city = "City must be at least 2 characters.";
+		} else if (!/^[a-zA-Z\s.,'-]+$/.test(trimmedCity)) {
+			newErrors.city = "Please enter a valid city / state name.";
+		}
+
+		setErrors(newErrors);
+		return Object.keys(newErrors).length === 0;
+	};
+
+	const handleClose = () => {
+		setErrors({});
+		closeEnquiry();
+	};
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
+
+		if (!validateForm()) {
+			return;
+		}
+
 		const msg = encodeURIComponent(
-			"*PRODUCT ENQUIRY - NOVAINE BIKES*\n" +
-				"*\nName: " +
-				fullName +
-				"\nPhone: " +
-				phone +
-				"\nCity: " +
-				city +
-				"\nMessage: " +
-				note,
+			"*PRODUCT ENQUIRY - NOVAINE BIKES*\n\n" +
+				"*Name:* " +
+				fullName.trim() +
+				"\n*Phone:* " +
+				phone.trim() +
+				"\n*City / State:* " +
+				city.trim() +
+				(note.trim() ? "\n*Message:* " + note.trim() : ""),
 		);
 
 		window.open("https://wa.me/918758216246?text=" + msg, "_blank");
 		alert(
 			"Thank you! Your enquiry has been routed to Novaine Bikes sales desk.",
 		);
+
+		// Reset form and close
+		setFullName("");
+		setPhone("");
+		setCity("");
+		setNote("");
+		setErrors({});
 		closeEnquiry();
 	};
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-			<div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
-				{/* Modal Header */}
+			<div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
 				<div className="bg-gradient-to-r from-gray-950 to-gray-900 text-white p-5 flex items-center justify-between">
-					<div className="flex items-center gap-2">
-						<span className="w-8 h-8 rounded-full bg-novaine-yellow/20 text-novaine-yellow flex items-center justify-center font-bold">
+					<div className="flex items-center gap-2.5">
+						<span className="w-8 h-8 rounded-full bg-novaine-yellow/20 text-novaine-yellow flex items-center justify-center font-bold text-base">
 							🚲
 						</span>
 						<div>
 							<h3 className="text-base font-bold">
 								Direct Product Enquiry
 							</h3>
+							<p className="text-[11px] text-gray-400">
+								Get instant response from our factory sales desk
+							</p>
 						</div>
 					</div>
 					<button
-						onClick={closeEnquiry}
-						className="p-1 text-gray-400 hover:text-white transition-colors"
+						onClick={handleClose}
+						className="p-1.5 text-gray-400 hover:text-white rounded-lg transition-colors"
+						aria-label="Close modal"
 					>
 						<X className="w-5 h-5" />
 					</button>
 				</div>
 
 				{/* Modal Form */}
-				<form onSubmit={handleSubmit} className="p-6 space-y-4">
-
+				<form
+					onSubmit={handleSubmit}
+					noValidate
+					className="p-6 space-y-4 text-xs"
+				>
 					<div>
-						<label className="block text-xs font-bold text-gray-700 mb-1">
+						<label className="block font-bold text-gray-700 mb-1">
 							Your Full Name{" "}
 							<span className="text-red-500">*</span>
 						</label>
@@ -70,60 +138,111 @@ export default function EnquiryModal() {
 							type="text"
 							placeholder="e.g. Aman Singh"
 							value={fullName}
-							onChange={(e) => setFullName(e.target.value)}
-							required
-							className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 text-sm focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none"
+							onChange={(e) => {
+								setFullName(e.target.value);
+								if (errors.fullName)
+									setErrors((prev) => ({
+										...prev,
+										fullName: undefined,
+									}));
+							}}
+							className={`w-full bg-gray-50 border rounded-lg px-3.5 py-2.5 text-xs sm:text-sm outline-none transition-colors ${
+								errors.fullName
+									? "border-red-500 focus:border-red-500 bg-red-50/30"
+									: "border-gray-200 focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20"
+							}`}
 						/>
+						{errors.fullName && (
+							<p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+								<AlertCircle className="w-3 h-3 shrink-0" />
+								{errors.fullName}
+							</p>
+						)}
 					</div>
 
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 						<div>
-							<label className="block text-xs font-bold text-gray-700 mb-1">
+							<label className="block font-bold text-gray-700 mb-1">
 								WhatsApp Number{" "}
 								<span className="text-red-500">*</span>
 							</label>
 							<input
 								type="tel"
-								placeholder="Enter your number"
+								placeholder="e.g. 98765 43210"
 								value={phone}
-								onChange={(e) => setPhone(e.target.value)}
-								required
-								className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 text-sm focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none"
+								onChange={(e) => {
+									setPhone(e.target.value);
+									if (errors.phone)
+										setErrors((prev) => ({
+											...prev,
+											phone: undefined,
+										}));
+								}}
+								className={`w-full bg-gray-50 border rounded-lg px-3.5 py-2.5 text-xs sm:text-sm outline-none transition-colors ${
+									errors.phone
+										? "border-red-500 focus:border-red-500 bg-red-50/30"
+										: "border-gray-200 focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20"
+								}`}
 							/>
+							{errors.phone && (
+								<p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+									<AlertCircle className="w-3 h-3 shrink-0" />
+									{errors.phone}
+								</p>
+							)}
 						</div>
 
 						<div>
-							<label className="block text-xs font-bold text-gray-700 mb-1">
+							<label className="block font-bold text-gray-700 mb-1">
 								City / State{" "}
 								<span className="text-red-500">*</span>
 							</label>
 							<input
 								type="text"
-								placeholder="e.g. Delhi"
+								placeholder="e.g. Ludhiana, Punjab"
 								value={city}
-								onChange={(e) => setCity(e.target.value)}
-								required
-								className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 text-sm focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none"
+								onChange={(e) => {
+									setCity(e.target.value);
+									if (errors.city)
+										setErrors((prev) => ({
+											...prev,
+											city: undefined,
+										}));
+								}}
+								className={`w-full bg-gray-50 border rounded-lg px-3.5 py-2.5 text-xs sm:text-sm outline-none transition-colors ${
+									errors.city
+										? "border-red-500 focus:border-red-500 bg-red-50/30"
+										: "border-gray-200 focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20"
+								}`}
 							/>
+							{errors.city && (
+								<p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+									<AlertCircle className="w-3 h-3 shrink-0" />
+									{errors.city}
+								</p>
+							)}
 						</div>
 					</div>
 
 					<div>
-						<label className="block text-xs font-bold text-gray-700 mb-1">
-							Message
+						<label className="block font-bold text-gray-700 mb-1">
+							Message{" "}
+							<span className="text-gray-400 font-normal">
+								(Optional)
+							</span>
 						</label>
 						<textarea
 							rows={2}
-							placeholder="Enter message"
+							placeholder="Mention preferred models (e.g. Kombat, Hunt Pro, Cyclone)..."
 							value={note}
 							onChange={(e) => setNote(e.target.value)}
-							className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 text-sm focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none"
+							className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 text-xs sm:text-sm focus:bg-white focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none transition-colors"
 						></textarea>
 					</div>
 
 					<button
 						type="submit"
-						className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg shadow-md transition-colors text-sm"
+						className="w-full inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-bold py-3 rounded-lg shadow-md transition-all text-xs sm:text-sm cursor-pointer mt-2"
 					>
 						<Send className="w-4 h-4" /> Send Enquiry via WhatsApp
 					</button>
