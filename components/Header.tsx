@@ -2,29 +2,29 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import {
-	Phone,
-	MapPin,
-	Search,
-	Menu,
-	X,
-	ChevronDown,
-	Mail,
-	Handshake,
-	CheckCircle2,
-} from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Phone, Search, Menu, X, ChevronDown, Mail } from "lucide-react";
 import { PRODUCTS } from "@/data/products";
 import { useEnquiry } from "@/context/EnquiryContext";
 
 export default function Header() {
 	const pathname = usePathname();
+	const router = useRouter();
 	const { openEnquiry } = useEnquiry();
+
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [searchResults, setSearchResults] = useState<typeof PRODUCTS>([]);
 	const [isSearchOpen, setIsSearchOpen] = useState(false);
 	const searchRef = useRef<HTMLDivElement>(null);
+
+	// Navigate to product and close all search/drawer states
+	const handleSelectProduct = (productId: string) => {
+		setIsSearchOpen(false);
+		setSearchQuery("");
+		setMobileMenuOpen(false);
+		router.push(`/bicycles/${productId}`);
+	};
 
 	useEffect(() => {
 		if (searchQuery.trim().length >= 2) {
@@ -64,7 +64,7 @@ export default function Header() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2">
 					<div className="flex items-center gap-4 flex-wrap">
 						<a
-							href="https://wa.me/919053014084"
+							href="https://wa.me/918758216246"
 							target="_blank"
 							rel="noreferrer"
 							className="inline-flex items-center gap-1.5 text-gray-300 hover:text-novaine-yellow transition-colors"
@@ -88,7 +88,7 @@ export default function Header() {
 			{/* Main Sticky Header */}
 			<header className="sticky top-0 z-40 bg-white shadow-sm border-b border-gray-100">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-					{/* Brand Logo */}
+					{/* Brand Logo & Desktop Nav Links */}
 					<nav className="hidden lg:flex items-center gap-7">
 						<Link
 							href="/"
@@ -101,12 +101,10 @@ export default function Header() {
 							/>
 						</Link>
 
-						{/* Desktop Nav Links */}
-
 						<Link
 							href="/"
 							className={
-								"text-sm font-semibold transition-colors" +
+								"text-sm font-semibold transition-colors " +
 								(pathname === "/"
 									? "text-novaine-purple"
 									: "text-gray-800 hover:text-novaine-purple")
@@ -135,19 +133,13 @@ export default function Header() {
 									href="/bicycles?cat=kids"
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-novaine-purple-light hover:text-novaine-purple transition-colors font-medium"
 								>
-									👶 Kids Bikes (14T, 16T, 20T)
+									Kids Bikes
 								</Link>
 								<Link
 									href="/bicycles?cat=ranger"
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-novaine-purple-light hover:text-novaine-purple transition-colors font-medium"
 								>
-									🚵 Ranger & MTB (24T, 26T)
-								</Link>
-								<Link
-									href="/bicycles?cat=city"
-									className="block px-4 py-2 text-sm text-gray-700 hover:bg-novaine-purple-light hover:text-novaine-purple transition-colors font-medium"
-								>
-									🏙️ City & Commuter
+									Ranger & MTB
 								</Link>
 								<div className="border-t border-gray-100 my-1"></div>
 								<Link
@@ -199,9 +191,9 @@ export default function Header() {
 							/>
 							<Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
 
-							{/* Live Search Autocomplete */}
+							{/* Desktop Live Search Dropdown */}
 							{isSearchOpen && (
-								<div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto z-50">
+								<div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 max-h-80 overflow-y-auto z-50 divide-y divide-gray-50">
 									{searchResults.length === 0 ? (
 										<div className="p-4 text-center text-xs text-gray-500">
 											No bicycles found matching "
@@ -209,29 +201,30 @@ export default function Header() {
 										</div>
 									) : (
 										searchResults.map((p) => (
-											<Link
+											<button
 												key={p.id}
-												href={"/bicycles/" + p.id}
-												onClick={() =>
-													setIsSearchOpen(false)
-												}
-												className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b border-gray-50 last:border-none transition-colors"
+												type="button"
+												onMouseDown={(e) => {
+													e.preventDefault();
+													handleSelectProduct(p.id);
+												}}
+												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
 											>
 												<img
 													src={p.imageSide}
 													alt={p.name}
-													className="w-10 h-10 object-contain rounded"
+													className="w-10 h-10 object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
 												/>
-												<div>
-													<div className="text-xs font-bold text-gray-900">
+												<div className="min-w-0 flex-1">
+													<div className="text-xs font-bold text-gray-900 truncate">
 														{p.name}
 													</div>
-													<div className="text-[11px] text-gray-500">
+													<div className="text-[11px] text-gray-500 truncate">
 														{p.category} •{" "}
 														{p.sizes.join(", ")}
 													</div>
 												</div>
-											</Link>
+											</button>
 										))
 									)}
 								</div>
@@ -245,7 +238,7 @@ export default function Header() {
 							<Mail className="w-4 h-4" /> Quick Enquiry
 						</button>
 
-						{/* Mobile Hamburger Button */}
+						{/* Mobile Top Bar */}
 						<div className="lg:hidden flex w-full items-center justify-between">
 							<button
 								onClick={() => setMobileMenuOpen(true)}
@@ -287,14 +280,71 @@ export default function Header() {
 							</button>
 						</div>
 
-						<div className="p-4 border-b border-gray-100 bg-white">
-							<input
-								type="text"
-								value={searchQuery}
-								onChange={(e) => setSearchQuery(e.target.value)}
-								placeholder="Search models..."
-								className="w-full bg-gray-100 text-xs sm:text-sm px-3.5 py-2 rounded-lg outline-none focus:ring-1 focus:ring-novaine-purple"
-							/>
+						<div className="relative p-3 sm:p-4 border-b border-gray-100 bg-white shrink-0">
+							<div className="relative">
+								<input
+									type="text"
+									value={searchQuery}
+									onChange={(e) =>
+										setSearchQuery(e.target.value)
+									}
+									placeholder="Search models"
+									className="w-full bg-gray-100 focus:bg-white text-xs sm:text-sm pl-9 pr-8 py-2 rounded-lg border border-transparent focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none transition-all"
+								/>
+								<Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+
+								{searchQuery && (
+									<button
+										onClick={() => {
+											setSearchQuery("");
+											setIsSearchOpen(false);
+										}}
+										className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-gray-700"
+										aria-label="Clear search"
+									>
+										<X className="w-3.5 h-3.5" />
+									</button>
+								)}
+							</div>
+
+							{/* Mobile Live Search Dropdown */}
+							{isSearchOpen && (
+								<div className="absolute top-full left-3 right-3 sm:left-4 sm:right-4 mt-1 bg-white rounded-xl shadow-2xl border border-gray-200 max-h-72 overflow-y-auto z-50 divide-y divide-gray-50">
+									{searchResults.length === 0 ? (
+										<div className="p-3.5 text-center text-xs text-gray-500">
+											No bicycles found matching "
+											{searchQuery}"
+										</div>
+									) : (
+										searchResults.map((p) => (
+											<button
+												key={p.id}
+												type="button"
+												onMouseDown={(e) => {
+													e.preventDefault();
+													handleSelectProduct(p.id);
+												}}
+												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
+											>
+												<img
+													src={p.imageSide}
+													alt={p.name}
+													className="w-10 h-10 object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
+												/>
+												<div className="min-w-0 flex-1">
+													<div className="text-xs font-bold text-gray-900 truncate">
+														{p.name}
+													</div>
+													<div className="text-[10px] text-gray-500 truncate">
+														{p.category} •{" "}
+														{p.sizes.join(", ")}
+													</div>
+												</div>
+											</button>
+										))
+									)}
+								</div>
+							)}
 						</div>
 
 						<nav className="flex-1 min-h-0 max-h-fit overflow-y-auto p-4 space-y-1.5 overscroll-contain">
@@ -342,6 +392,7 @@ export default function Header() {
 							</Link>
 						</nav>
 
+						{/* Footer */}
 						<div className="hidden min-[380px]:flex flex-col mt-auto p-4 bg-gray-50 border-t border-gray-100 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
 							<div className="text-xs font-bold text-gray-900">
 								V&U Industries

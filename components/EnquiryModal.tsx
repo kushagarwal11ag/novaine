@@ -50,8 +50,8 @@ export default function EnquiryModal() {
 		const trimmedCity = city.trim();
 		if (!trimmedCity) {
 			newErrors.city = "City / State is required.";
-		} else if (trimmedCity.length < 2) {
-			newErrors.city = "City must be at least 2 characters.";
+		} else if (trimmedCity.length < 3) {
+			newErrors.city = "City must be at least 3 characters.";
 		} else if (!/^[a-zA-Z\s.,'-]+$/.test(trimmedCity)) {
 			newErrors.city = "Please enter a valid city / state name.";
 		}
@@ -88,7 +88,6 @@ export default function EnquiryModal() {
 			"Thank you! Your enquiry has been routed to Novaine Bikes sales desk.",
 		);
 
-		// Reset form and close
 		setFullName("");
 		setPhone("");
 		setCity("");
@@ -102,9 +101,6 @@ export default function EnquiryModal() {
 			<div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
 				<div className="bg-gradient-to-r from-gray-950 to-gray-900 text-white p-5 flex items-center justify-between">
 					<div className="flex items-center gap-2.5">
-						<span className="w-8 h-8 rounded-full bg-novaine-yellow/20 text-novaine-yellow flex items-center justify-center font-bold text-base">
-							🚲
-						</span>
 						<div>
 							<h3 className="text-base font-bold">
 								Direct Product Enquiry

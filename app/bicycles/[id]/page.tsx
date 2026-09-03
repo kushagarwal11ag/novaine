@@ -9,12 +9,9 @@ import { useEnquiry } from "@/context/EnquiryContext";
 import {
 	CheckCircle2,
 	Send,
-	Handshake,
-	Truck,
 	ShieldCheck,
 	Wrench,
 	ChevronRight,
-	Factory,
 } from "lucide-react";
 
 export default function ProductDetailPage() {
@@ -51,11 +48,10 @@ export default function ProductDetailPage() {
 				</div>
 			</div>
 
-			{/* Main Detail Section */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 					{/* Gallery Column */}
-					<div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm sticky top-24">
+					<div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm lg:sticky top-24">
 						<div className="relative w-full h-80 sm:h-96 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center p-4 mb-4">
 							<img
 								src={selectedImage}
@@ -64,7 +60,6 @@ export default function ProductDetailPage() {
 							/>
 						</div>
 
-						{/* Thumbnails */}
 						<div className="flex gap-3">
 							<button
 								onClick={() =>
@@ -101,8 +96,6 @@ export default function ProductDetailPage() {
 								/>
 							</button>
 						</div>
-
-						
 					</div>
 
 					{/* Info & Specs Column */}
@@ -115,18 +108,14 @@ export default function ProductDetailPage() {
 								{product.name}
 							</h1>
 							<p className="text-sm font-semibold text-gray-500 mt-1">
-								{product.speeds} • {product.ageGroup}
+								{product.ageGroup}
 							</p>
 						</div>
 
-						<div className="flex items-center gap-3">
-							<span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+						<div>
+							<span className="inline-flex gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
 								<CheckCircle2 className="w-3.5 h-3.5" /> In
-								Stock / Ready for Dispatch
-							</span>
-							<span className="text-xs font-medium text-gray-500">
-								<ShieldCheck className="w-3.5 h-3.5 text-novaine-yellow inline mr-1" />
-								ISO 9001 Certified
+								Stock
 							</span>
 						</div>
 
@@ -134,7 +123,6 @@ export default function ProductDetailPage() {
 							{product.desc}
 						</p>
 
-						{/* Size Selector */}
 						<div>
 							<div className="text-xs font-bold text-gray-900 mb-2">
 								Available Wheel Sizes:
@@ -157,7 +145,6 @@ export default function ProductDetailPage() {
 							</div>
 						</div>
 
-						{/* Color Selector */}
 						<div>
 							<div className="text-xs font-bold text-gray-900 mb-2">
 								Colours:{" "}
@@ -186,7 +173,6 @@ export default function ProductDetailPage() {
 							</div>
 						</div>
 
-						{/* Action Buttons */}
 						<div className="flex min-w-full pt-2">
 							<button
 								onClick={() =>
@@ -201,10 +187,8 @@ export default function ProductDetailPage() {
 							>
 								<Send className="w-4 h-4" /> Enquire on WhatsApp
 							</button>
-							
 						</div>
 
-						{/* Technical Specifications Table */}
 						<div className="pt-4 border-t border-gray-100">
 							<h3 className="text-base font-bold text-gray-900 mb-3 flex items-center gap-2">
 								<Wrench className="w-4 h-4 text-novaine-purple" />{" "}
@@ -214,7 +198,6 @@ export default function ProductDetailPage() {
 							<div className="bg-white border border-gray-200 rounded-xl overflow-hidden text-xs">
 								<table className="w-full text-left">
 									<tbody className="divide-y divide-gray-100">
-										
 										<tr>
 											<td className="p-3 font-semibold text-gray-700">
 												Model Name
@@ -260,8 +243,7 @@ export default function ProductDetailPage() {
 												Manufacturing Origin
 											</td>
 											<td className="p-3 text-gray-900">
-												Ludhiana, Punjab - 141003
-												(India)
+												Ludhiana, Punjab
 											</td>
 										</tr>
 										<tr>
@@ -269,8 +251,7 @@ export default function ProductDetailPage() {
 												Warranty Coverage
 											</td>
 											<td className="p-3 text-gray-900">
-												2 Year Frame Structural
-												Warranty
+												2 Year Frame Structural Warranty
 											</td>
 										</tr>
 									</tbody>

@@ -10,7 +10,7 @@ export default function WhatsAppFab() {
       target="_blank"
       rel="noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 hover:rotate-6 transition-all duration-300"
+      className="hidden lg:flex fixed bottom-6 right-6 z-40 w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full items-center justify-center shadow-2xl hover:scale-110 hover:rotate-6 transition-all duration-300"
     >
       <Whatsapp variant="Bold" className="w-10 h-10 fill-current" />
     </a>
