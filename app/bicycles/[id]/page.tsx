@@ -221,7 +221,7 @@ export default function ProductDetailPage() {
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 					{/* LEFT COLUMN: MULTI-ANGLE IMAGE GALLERY */}
-					<div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm sticky top-24">
+					<div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm lg:sticky top-24">
 						{/* Main Image View */}
 						<div className="relative w-full h-72 sm:h-96 bg-gray-50/80 rounded-2xl overflow-hidden flex items-center justify-center p-4 mb-4">
 							<img
