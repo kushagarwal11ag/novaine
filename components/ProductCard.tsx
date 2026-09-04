@@ -64,20 +64,19 @@ export default function ProductCard({ product }: { product: Product }) {
 
 				{/* Key Features Chips */}
 				<div className="flex flex-wrap gap-1.5 mb-5">
-					<span className="inline-flex items-center text-[11px] font-medium bg-gray-100 text-gray-700 px-2.5 py-1 rounded">
-						{product.frame.split(" ")[0]} Frame
-					</span>
-					<span className="inline-flex items-center text-[11px] font-medium bg-gray-100 text-gray-700 px-2.5 py-1 rounded">
-						{product.brakes.includes("Disc")
-							? "Dual Disc"
-							: "Power V-Brake"}
-					</span>
+					{/* <span className="inline-flex items-center text-[11px] font-medium bg-gray-100 text-gray-700 px-2.5 py-1 rounded">
+						{product.brakes == "Caliper"
+							? "Caliper Brake"
+							: product.brakes == "V-Brake"
+								? "V-Brake"
+								: "Disc Brake"}
+					</span> */}
 				</div>
 			</div>
 			<div className="pt-2 border-t border-gray-50">
 				<Link
 					href={"/bicycles/" + product.id}
-					className="w-full flex-1 inline-flex items-center justify-center gap-1 hover:border border-black bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold py-2.5 rounded-lg transition-all"
+					className="w-full flex-1 inline-flex items-center justify-center gap-1 hover:bg-novaine-purple bg-gray-100 hover:text-novaine-purple-light text-gray-800 text-xs font-bold py-2.5 rounded-lg transition-all"
 				>
 					View Details <ArrowRight className="w-3.5 h-3.5" />
 				</Link>

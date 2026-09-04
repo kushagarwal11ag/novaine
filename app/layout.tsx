@@ -7,9 +7,9 @@ import EnquiryModal from '@/components/EnquiryModal';
 import WhatsAppFab from '@/components/WhatsAppFab';
 
 export const metadata: Metadata = {
-  title: 'Novaine Bikes | V&U Industries - Ludhiana, Punjab - 141003',
+  title: 'Novaine Bikes',
   description:
-    'Novaine Bikes by V&U Industries Ludhiana Punjab. Premier manufacturer of kids bicycles (Kombat, Magnet, Boomer in 14T, 16T, 20T) and ranger bicycles (Hunt, Hunt Pro, Cyclone in 24T, 26T).',
+    'Premier manufacturer of bicycles.',
   icons: {
     icon: '/assets/images/favicon.png',
   },

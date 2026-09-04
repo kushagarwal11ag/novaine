@@ -2,14 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-	Factory,
-	ShieldCheck,
-	Award,
-	Users,
-	CheckCircle2,
-	ArrowRight,
-} from "lucide-react";
 
 export default function AboutPage() {
 	return (
@@ -94,7 +86,7 @@ export default function AboutPage() {
 							/>
 							<div>
 								<div className="font-bold text-gray-900 text-sm">
-									30+ Years Legacy
+									10+ Years Legacy
 								</div>
 							</div>
 						</div>

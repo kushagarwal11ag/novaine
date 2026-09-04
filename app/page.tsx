@@ -10,7 +10,7 @@ import { ArrowRight, Factory } from "lucide-react";
 export default function HomePage() {
 	const kidsBikes = PRODUCTS.filter((p) => p.categorySlug === "kids");
 	const rangerBikes = PRODUCTS.filter(
-		(p) => p.categorySlug === "ranger" || p.categorySlug === "city",
+		(p) => p.categorySlug === "ranger",
 	);
 
 	return (

@@ -30,3 +30,9 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+// hero slider data
+// whatsapp + call no - modal, contact, utility, sidebar, FAB
+// contact inquiry purpose
+// filter options data
+// dynamic title

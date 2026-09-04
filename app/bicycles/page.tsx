@@ -88,7 +88,6 @@ function CatalogContent() {
 							id: "ranger",
 							label: "Ranger & MTB (24T, 26T)",
 						},
-						{ id: "city", label: "City & Commuter" },
 					].map((c) => (
 						<label
 							key={c.id}

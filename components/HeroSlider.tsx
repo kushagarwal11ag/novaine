@@ -10,7 +10,7 @@ const SLIDES = [
 		tag: "Popular Kids Series",
 		title: "Kombat",
 		image: "/assets/images/hero_slide_1.jpg", // Desktop image
-		imageMobile: "",
+		imageMobile: "", // Mobile image
 		modelId: "hunt-pro",
 		modelName: "Novaine Hunt Pro",
 	},

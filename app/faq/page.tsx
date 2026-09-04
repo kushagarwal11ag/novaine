@@ -49,7 +49,7 @@ const FAQ_DATA: FAQItem[] = [
 	{
 		category: "sizing",
 		q: "What types of bicycles does Novaine offer?",
-		a: "We offer a diverse range of bicycles tailored for every age group and riding style. From fun and educational bikes for toddlers and kids to robust mountain bikes for adventure seekers, Novaine caters to every rider's needs. We even have the delightful Baby Sky Swing for the little ones!",
+		a: "We offer a diverse range of bicycles tailored for every age group and riding style. From fun and educational bikes for toddlers and kids to robust mountain bikes for adventure seekers, Novaine caters to every rider's needs.",
 	},
 	{
 		category: "sizing",
