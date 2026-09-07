@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Flame } from "lucide-react";
 import { useEnquiry } from "@/context/EnquiryContext";
+import SafeImage from "./SafeImage";
 
 const SLIDES = [
 	{
@@ -120,9 +121,11 @@ export default function HeroSlider() {
 							/>
 						)}
 						{/* Default/Desktop Image with smart focal positioning on mobile */}
-						<img
+						<SafeImage
 							src={slide.image}
 							alt={slide.title}
+							width={100}
+							height={100}
 							className="w-full h-full object-cover object-center transition-all duration-700"
 						/>
 					</picture>

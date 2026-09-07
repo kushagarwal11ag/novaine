@@ -6,12 +6,11 @@ import HeroSlider from "@/components/HeroSlider";
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/products";
 import { ArrowRight, Factory } from "lucide-react";
+import SafeImage from "@/components/SafeImage";
 
 export default function HomePage() {
 	const kidsBikes = PRODUCTS.filter((p) => p.categorySlug === "kids");
-	const rangerBikes = PRODUCTS.filter(
-		(p) => p.categorySlug === "ranger",
-	);
+	const rangerBikes = PRODUCTS.filter((p) => p.categorySlug === "ranger");
 
 	return (
 		<div>
@@ -44,9 +43,11 @@ export default function HomePage() {
 							className="group bg-white rounded-2xl p-4 border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
 						>
 							<div className="relative h-44 rounded-xl overflow-hidden bg-gray-100 mb-4">
-								<img
+								<SafeImage
 									src="/assets/images/cat_kids.jpg"
 									alt="Kids Bikes"
+									width={200}
+									height={200}
 									className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 								/>
 							</div>
@@ -70,9 +71,11 @@ export default function HomePage() {
 							className="group bg-white rounded-2xl p-4 border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
 						>
 							<div className="relative h-44 rounded-xl overflow-hidden bg-gray-100 mb-4">
-								<img
+								<SafeImage
 									src="/assets/images/cat_bicycles.jpg"
 									alt="Ranger & Adult Bikes"
+									width={200}
+									height={200}
 									className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 								/>
 							</div>
@@ -131,10 +134,6 @@ export default function HomePage() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="bg-gradient-to-br from-gray-950 via-purple-950 to-novaine-purple rounded-3xl p-8 sm:p-12 text-white shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
 						<div className="max-w-xl">
-							<span className="inline-flex items-center gap-1.5 bg-novaine-yellow text-gray-950 text-xs font-black uppercase px-3 py-1 rounded-full mb-4">
-								<Factory className="w-3.5 h-3.5" /> Indigenous
-								Manufacturing
-							</span>
 							<h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-4">
 								Precision Manufacturing In Ludhiana, Punjab
 							</h2>
@@ -156,9 +155,11 @@ export default function HomePage() {
 						</div>
 
 						<div className="shrink-0 max-w-sm">
-							<img
-								src="/assets/images/hunt_side.jpg"
+							<SafeImage
+								src="/assets/images/bicycle/alpha-ylw.jpg"
 								alt="Novaine Bike Engineering"
+								width={200}
+								height={200}
 								className="w-full h-auto drop-shadow-2xl"
 							/>
 						</div>
@@ -221,9 +222,11 @@ export default function HomePage() {
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<img
+								<SafeImage
 									src="/assets/images/green-building-icon.png"
 									alt="Green Building"
+									width={64}
+									height={64}
 									className="w-9 h-9 object-contain"
 								/>
 							</div>
@@ -243,9 +246,11 @@ export default function HomePage() {
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<img
+								<SafeImage
 									src="/assets/images/30-years-icon.png"
 									alt="30+ Years Heritage"
+									width={64}
+									height={64}
 									className="w-9 h-9 object-contain"
 								/>
 							</div>
@@ -263,9 +268,11 @@ export default function HomePage() {
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<img
+								<SafeImage
 									src="/assets/images/support-icon.png"
 									alt="Hassle Free Support"
+									width={64}
+									height={64}
 									className="w-9 h-9 object-contain"
 								/>
 							</div>

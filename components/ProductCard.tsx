@@ -2,15 +2,16 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Product } from "@/data/products";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function ProductCard({ product }: { product: Product }) {
 	const [selectedColor, setSelectedColor] = useState(product.colors[0]);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	return (
 		<div className="product-card group bg-white rounded-2xl border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 p-5 flex flex-col justify-between">
-			{/* Top Badges */}
 			<div>
 				<div className="flex items-center justify-between gap-2 mb-3">
 					<span className="text-[11px] font-bold uppercase tracking-wider text-novaine-purple bg-novaine-purple-light px-2.5 py-0.5 rounded-full">
@@ -25,21 +26,34 @@ export default function ProductCard({ product }: { product: Product }) {
 					<Link href={"/bicycles/" + product.id}>{product.name}</Link>
 				</h3>
 
-				{/* Dual-Angle Image Container */}
 				<div className="relative w-full h-48 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center p-3 mb-4">
-					<img
+					{/* 1. Shimmer Skeleton Placeholder (Renders First until loaded) */}
+					{!isLoaded && (
+						<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-0">
+							<span className="text-3xl opacity-20 select-none">
+								🚲
+							</span>
+						</div>
+					)}
+
+					<Image
 						src={selectedColor.imgSide}
 						alt={product.name + " Side"}
-						className="img-side absolute max-h-[85%] max-w-[85%] object-contain transition-all duration-500"
+						width={400}
+						height={300}
+						onLoad={() => setIsLoaded(true)}
+						className="img-side absolute max-h-[85%] max-w-[85%] object-contain transition-all duration-500 z-1"
 					/>
-					<img
+
+					<Image
 						src={selectedColor.imgFront}
 						alt={product.name + " Front"}
-						className="img-front absolute max-h-[85%] max-w-[85%] object-contain opacity-0 scale-95 transition-all duration-500"
+						width={400}
+						height={300}
+						className="img-front absolute max-h-[85%] max-w-[85%] object-contain opacity-0 scale-95 transition-all duration-500 z-2"
 					/>
 				</div>
 
-				{/* Color Swatches */}
 				<div className="flex items-center gap-2 mb-3">
 					<span className="text-xs font-medium text-gray-500">
 						Colours:
@@ -52,7 +66,7 @@ export default function ProductCard({ product }: { product: Product }) {
 								onClick={() => setSelectedColor(c)}
 								style={{ backgroundColor: c.hex }}
 								className={
-									"w-5 h-5 rounded-full border-2 border-opacity-10 border-black shadow-sm transition-transform " +
+									"w-5 h-5 rounded-full border-2 border-opacity-10 border-black shadow-sm transition-transform cursor-pointer " +
 									(selectedColor.name === c.name
 										? "ring-2 ring-novaine-purple scale-110"
 										: "hover:scale-105")
@@ -62,21 +76,13 @@ export default function ProductCard({ product }: { product: Product }) {
 					</div>
 				</div>
 
-				{/* Key Features Chips */}
-				<div className="flex flex-wrap gap-1.5 mb-5">
-					{/* <span className="inline-flex items-center text-[11px] font-medium bg-gray-100 text-gray-700 px-2.5 py-1 rounded">
-						{product.brakes == "Caliper"
-							? "Caliper Brake"
-							: product.brakes == "V-Brake"
-								? "V-Brake"
-								: "Disc Brake"}
-					</span> */}
-				</div>
+				<div className="flex flex-wrap gap-1.5 mb-5"></div>
 			</div>
+
 			<div className="pt-2 border-t border-gray-50">
 				<Link
 					href={"/bicycles/" + product.id}
-					className="w-full flex-1 inline-flex items-center justify-center gap-1 hover:bg-novaine-purple bg-gray-100 hover:text-novaine-purple-light text-gray-800 text-xs font-bold py-2.5 rounded-lg transition-all"
+					className="w-full flex-1 inline-flex items-center justify-center gap-1 hover:bg-novaine-purple bg-gray-100 hover:text-white text-gray-800 text-xs font-bold py-2.5 rounded-lg transition-all"
 				>
 					View Details <ArrowRight className="w-3.5 h-3.5" />
 				</Link>

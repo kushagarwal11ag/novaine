@@ -1,7 +1,13 @@
-"use client";
+import type { Metadata } from "next";
 
 import React from "react";
-import Link from "next/link";
+import SafeImage from "@/components/SafeImage";
+
+export const metadata: Metadata = {
+	title: "About Us - Heritage & Manufacturing Excellence",
+	description:
+		"Discover the story of Novaine Bikes, manufactured in Ludhiana, Punjab. Decades of precision cycling engineering, safety, and sustainable innovation.",
+};
 
 export default function AboutPage() {
 	return (
@@ -73,15 +79,19 @@ export default function AboutPage() {
 					</div>
 
 					<div className="relative">
-						<img
+						<SafeImage
 							src="/assets/images/hero_slide_1.jpg"
 							alt="V&U Industries Plant"
+							width={100}
+							height={100}
 							className="rounded-3xl shadow-xl w-full"
 						/>
-						<div className="absolute -bottom-6 -right-6 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4">
-							<img
+						<div className="absolute -bottom-6 -right-3 bg-white p-5 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4">
+							<SafeImage
 								src="/assets/images/30-years-icon.png"
 								alt="30 Years"
+								width={100}
+								height={100}
 								className="w-12 h-12 object-contain"
 							/>
 							<div>
@@ -108,23 +118,17 @@ export default function AboutPage() {
 
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 						<div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-							<div className="w-12 h-12 rounded-xl bg-purple-50 text-novaine-purple flex items-center justify-center font-bold text-xl mb-4">
-								🤖
-							</div>
 							<h3 className="font-bold text-gray-900 text-base mb-2">
 								Precision Welding
 							</h3>
 							<p className="text-xs text-gray-500 leading-relaxed">
-								Precision TIG/MIG welding jigs
-								ensuring high frame structural integrity and
-								zero misalignment.
+								Precision TIG/MIG welding jigs ensuring high
+								frame structural integrity and zero
+								misalignment.
 							</p>
 						</div>
 
 						<div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-							<div className="w-12 h-12 rounded-xl bg-amber-50 text-novaine-yellow flex items-center justify-center font-bold text-xl mb-4">
-								🎨
-							</div>
 							<h3 className="font-bold text-gray-900 text-base mb-2">
 								Eco Phosphate Coating
 							</h3>
@@ -136,9 +140,6 @@ export default function AboutPage() {
 						</div>
 
 						<div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-							<div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xl mb-4">
-								🔬
-							</div>
 							<h3 className="font-bold text-gray-900 text-base mb-2">
 								Rigorous Quality Testing
 							</h3>

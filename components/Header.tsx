@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Phone, Search, Menu, X, ChevronDown, Mail } from "lucide-react";
 import { PRODUCTS } from "@/data/products";
 import { useEnquiry } from "@/context/EnquiryContext";
+import SafeImage from "./SafeImage";
 
 export default function Header() {
 	const pathname = usePathname();
@@ -94,10 +95,12 @@ export default function Header() {
 							href="/"
 							className="flex items-center gap-3 shrink-0"
 						>
-							<img
+							<SafeImage
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
-								className="h-16 w-auto object-contain"
+								width={100}
+								height={64}
+								unoptimized
 							/>
 						</Link>
 
@@ -210,10 +213,12 @@ export default function Header() {
 												}}
 												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
 											>
-												<img
+												<SafeImage
 													src={p.imageSide}
 													alt={p.name}
-													className="w-10 h-10 object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
+													width={64}
+													height={64}
+													className="object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
 												/>
 												<div className="min-w-0 flex-1">
 													<div className="text-xs font-bold text-gray-900 truncate">
@@ -247,10 +252,12 @@ export default function Header() {
 							>
 								<Menu className="w-6 h-6" />
 							</button>
-							<img
+							<SafeImage
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
-								className="h-16 w-auto"
+								width={72}
+								height={48}
+								unoptimized
 							/>
 						</div>
 					</div>
@@ -267,10 +274,12 @@ export default function Header() {
 
 					<div className="relative w-80 bg-white h-full shadow-2xl flex flex-col">
 						<div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
-							<img
+							<SafeImage
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
-								className="h-10 w-auto"
+								width={72}
+								height={48}
+								unoptimized
 							/>
 							<button
 								onClick={() => setMobileMenuOpen(false)}
@@ -326,10 +335,12 @@ export default function Header() {
 												}}
 												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
 											>
-												<img
+												<SafeImage
 													src={p.imageSide}
 													alt={p.name}
-													className="w-10 h-10 object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
+													width={64}
+													height={64}
+													className="object-contain rounded bg-gray-50 p-1 border border-gray-100 shrink-0"
 												/>
 												<div className="min-w-0 flex-1">
 													<div className="text-xs font-bold text-gray-900 truncate">
