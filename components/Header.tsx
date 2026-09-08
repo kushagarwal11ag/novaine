@@ -7,6 +7,7 @@ import { Phone, Search, Menu, X, ChevronDown, Mail } from "lucide-react";
 import { PRODUCTS } from "@/data/products";
 import { useEnquiry } from "@/context/EnquiryContext";
 import SafeImage from "./SafeImage";
+import Image from "next/image";
 
 export default function Header() {
 	const pathname = usePathname();
@@ -95,12 +96,13 @@ export default function Header() {
 							href="/"
 							className="flex items-center gap-3 shrink-0"
 						>
-							<SafeImage
+							<Image
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
+								priority
 								width={100}
 								height={64}
-								unoptimized
+								className="w-auto h-32 object-contain"
 							/>
 						</Link>
 
@@ -252,12 +254,13 @@ export default function Header() {
 							>
 								<Menu className="w-6 h-6" />
 							</button>
-							<SafeImage
+							<Image
 								src="/assets/images/novaine_logo.svg"
 								alt="Novaine Bikes"
+								priority
 								width={72}
 								height={48}
-								unoptimized
+								className="w-auto h-24 object-contain"
 							/>
 						</div>
 					</div>
@@ -273,14 +276,7 @@ export default function Header() {
 					></div>
 
 					<div className="relative w-80 bg-white h-full shadow-2xl flex flex-col">
-						<div className="p-4 border-b border-gray-100 flex items-center justify-between shrink-0">
-							<SafeImage
-								src="/assets/images/novaine_logo.svg"
-								alt="Novaine Bikes"
-								width={72}
-								height={48}
-								unoptimized
-							/>
+						<div className="p-4 border-b border-gray-100">
 							<button
 								onClick={() => setMobileMenuOpen(false)}
 								className="p-2 text-gray-400 hover:text-gray-700"

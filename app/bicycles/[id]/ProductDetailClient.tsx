@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Product, PRODUCTS, ProductVariant } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import { useEnquiry } from "@/context/EnquiryContext";
@@ -15,7 +16,6 @@ import {
 	Sliders,
 	CircleDot,
 } from "lucide-react";
-import SafeImage from "@/components/SafeImage";
 
 export default function ProductDetailPage({ product }: { product: Product }) {
 	const params = useParams();
@@ -29,20 +29,54 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 	const [selectedTyreSize, setSelectedTyreSize] = useState<string>("");
 	const [selectedBrakeType, setSelectedBrakeType] = useState<string>("");
 	const [selectedColor, setSelectedColor] = useState(
-		product.colors[0] || {
+		product.colors?.[0] || {
 			name: "Standard",
 			hex: "#333",
 			imgSide: product.imageSide,
 			imgFront: product.imageFront,
 		},
 	);
+
+	// Image loading & switching states
+	const [isImageLoading, setIsImageLoading] = useState(true);
+	const [isSwitching, setIsSwitching] = useState(false);
 	const [activeAngle, setActiveAngle] = useState<"side" | "front">("side");
 
 	const hasVariants = Boolean(
 		product.variants && product.variants.length > 0,
 	);
 
-	// A. Available Tyre Types for selected Wheel Size (e.g. "Tyre Tube", "Tubeless")
+	// 1. Preload all color images in the background on mount
+	useEffect(() => {
+		if (!product.colors || product.colors.length <= 1) return;
+
+		product.colors.forEach((c) => {
+			if (c.imgSide) {
+				const imgSide = new window.Image();
+				imgSide.src = c.imgSide;
+			}
+			if (c.imgFront) {
+				const imgFront = new window.Image();
+				imgFront.src = c.imgFront;
+			}
+		});
+	}, [product.colors]);
+
+	// Color change handler
+	const handleColorChange = (c: typeof selectedColor) => {
+		if (c.name === selectedColor.name) return;
+		setIsSwitching(true);
+		setSelectedColor(c);
+	};
+
+	// Angle change handler
+	const handleAngleChange = (angle: "side" | "front") => {
+		if (angle === activeAngle) return;
+		setIsSwitching(true);
+		setActiveAngle(angle);
+	};
+
+	// Available Tyre Types for selected Wheel Size
 	const availableTyreTypes = useMemo(() => {
 		if (!hasVariants) return [];
 		const types = new Set<string>();
@@ -65,7 +99,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		}
 	}, [availableTyreTypes, selectedTyreType]);
 
-	// B. Available Tyre Sizes for selected Size + Tyre Type (e.g. "240", "300", "280")
+	// Available Tyre Sizes
 	const availableTyreSizes = useMemo(() => {
 		if (!hasVariants) return [];
 		const sizes = new Set<string>();
@@ -81,7 +115,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		return Array.from(sizes);
 	}, [product, selectedSize, selectedTyreType, hasVariants]);
 
-	// Auto-select valid Tyre Size when Tyre Type changes
+	// Auto-select valid Tyre Size
 	useEffect(() => {
 		if (availableTyreSizes.length > 0) {
 			if (!availableTyreSizes.includes(selectedTyreSize)) {
@@ -92,7 +126,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		}
 	}, [availableTyreSizes, selectedTyreSize]);
 
-	// C. Available Brake Types for selected Size + Tyre Type + Tyre Size
+	// Available Brake Types
 	const availableBrakeTypes = useMemo(() => {
 		if (!hasVariants) return [];
 		const brakes = new Set<string>();
@@ -126,7 +160,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		}
 	}, [availableBrakeTypes, selectedBrakeType]);
 
-	// Find active variant combination if model has variants
+	// Resolved Active Variant
 	const currentVariant: ProductVariant | undefined = useMemo(() => {
 		if (!hasVariants) return undefined;
 		return product.variants?.find(
@@ -145,18 +179,16 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		hasVariants,
 	]);
 
-	// Effective display values (supports both configurable models and fixed-spec models)
 	const effectiveTyreType =
 		selectedTyreType || product.tyreType || "Standard";
 	const effectiveTyreSize = selectedTyreSize || product.tyreSize || "";
 	const effectiveBrakes = selectedBrakeType || product.brakes;
 
-	// Stock status (variant stock if available, else product stock)
 	const isCurrentlyInStock = currentVariant
 		? currentVariant.isInStock
 		: (product.isInStock ?? true);
 
-	// Dynamic image resolution
+	// Dynamic Image Resolution
 	const resolvedImage = useMemo(() => {
 		if (activeAngle === "front") {
 			return (
@@ -224,12 +256,35 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 					<div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm lg:sticky top-24">
 						{/* Main Image View */}
 						<div className="relative w-full h-72 sm:h-96 bg-gray-50/80 rounded-2xl overflow-hidden flex items-center justify-center p-4 mb-4">
-							<SafeImage
+							{/* Initial Skeleton Loader */}
+							{isImageLoading && (
+								<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-10">
+									<div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
+								</div>
+							)}
+
+							{/* Swatch / Angle Switching Overlay */}
+							{isSwitching && (
+								<div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center z-20 transition-opacity">
+									<div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
+								</div>
+							)}
+
+							<Image
 								src={resolvedImage}
 								alt={product.name}
-								width={500}
-								height={500}
-								className="max-h-[92%] max-w-[92%] object-contain transition-all duration-300 drop-shadow-md"
+								width={600}
+								height={450}
+								priority
+								onLoad={() => {
+									setIsImageLoading(false);
+									setIsSwitching(false);
+								}}
+								className={`max-h-[92%] max-w-[92%] object-contain transition-all duration-300 drop-shadow-md ${
+									isSwitching
+										? "opacity-30 scale-98"
+										: "opacity-100 scale-100"
+								}`}
 							/>
 						</div>
 
@@ -237,44 +292,44 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 						<div className="flex items-center gap-3">
 							<button
 								type="button"
-								onClick={() => setActiveAngle("side")}
-								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer ${
+								onClick={() => handleAngleChange("side")}
+								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer overflow-hidden ${
 									activeAngle === "side"
 										? "border-novaine-purple shadow-sm ring-2 ring-novaine-purple/20"
 										: "border-gray-200 hover:border-gray-400"
 								}`}
 							>
-								<SafeImage
+								<Image
 									src={
 										currentVariant?.imageSide ||
 										selectedColor?.imgSide ||
 										product.imageSide
 									}
 									alt="Side Angle"
-									width={100}
-									height={100}
+									width={80}
+									height={80}
 									className="w-full h-full object-contain"
 								/>
 							</button>
 
 							<button
 								type="button"
-								onClick={() => setActiveAngle("front")}
-								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer ${
+								onClick={() => handleAngleChange("front")}
+								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer overflow-hidden ${
 									activeAngle === "front"
 										? "border-novaine-purple shadow-sm ring-2 ring-novaine-purple/20"
 										: "border-gray-200 hover:border-gray-400"
 								}`}
 							>
-								<SafeImage
+								<Image
 									src={
 										currentVariant?.imageFront ||
 										selectedColor?.imgFront ||
 										product.imageFront
 									}
 									alt="Front Angle"
-									width={100}
-									height={100}
+									width={80}
+									height={80}
 									className="w-full h-full object-contain"
 								/>
 							</button>
@@ -333,9 +388,10 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 											<button
 												key={size}
 												type="button"
-												onClick={() =>
-													setSelectedSize(size)
-												}
+												onClick={() => {
+													setIsSwitching(true);
+													setSelectedSize(size);
+												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
 													selectedSize === size
 														? "bg-novaine-purple text-white border-novaine-purple shadow-sm ring-2 ring-novaine-purple/20"
@@ -349,7 +405,6 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 								</div>
 							)}
 
-							{/* 2. Multi-Variant Selectors (Rendered when options exist) */}
 							{availableTyreTypes.length > 1 && (
 								<div>
 									<div className="font-semibold text-gray-700 mb-1.5 flex items-center justify-between">
@@ -363,9 +418,10 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 											<button
 												key={tType}
 												type="button"
-												onClick={() =>
-													setSelectedTyreType(tType)
-												}
+												onClick={() => {
+													setIsSwitching(true);
+													setSelectedTyreType(tType);
+												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
 													selectedTyreType === tType
 														? "bg-gray-900 text-white border-gray-900 shadow-sm"
@@ -392,9 +448,10 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 											<button
 												key={tSize}
 												type="button"
-												onClick={() =>
-													setSelectedTyreSize(tSize)
-												}
+												onClick={() => {
+													setIsSwitching(true);
+													setSelectedTyreSize(tSize);
+												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
 													selectedTyreSize === tSize
 														? "bg-gray-900 text-white border-gray-900 shadow-sm"
@@ -421,12 +478,13 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 											<button
 												key={bType}
 												type="button"
-												onClick={() =>
-													setSelectedBrakeType(bType)
-												}
+												onClick={() => {
+													setIsSwitching(true);
+													setSelectedBrakeType(bType);
+												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
 													selectedBrakeType === bType
-														? "bg-gray-900 text-white border-gray-900 shadow-sm"
+														? "bg-novaine-yellow text-gray-950 border-novaine-yellow shadow-sm font-black"
 														: "bg-white text-gray-700 border-gray-200 hover:border-gray-400"
 												}`}
 											>
@@ -442,7 +500,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 								(availableTyreTypes.length <= 1 &&
 									availableBrakeTypes.length <= 1)) && (
 								<div className="pt-2 border-t border-gray-200/60">
-									<span className="font-semibold text-[11px] text-gray-500 uppercase tracking-wider block mb-2">
+									<span className="font-semibold text-[11px] text-gray-500 tracking-wider block mb-2">
 										Standard Factory Equipment:
 									</span>
 									<div className="flex flex-wrap gap-2">
@@ -480,7 +538,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 												type="button"
 												title={c.name}
 												onClick={() =>
-													setSelectedColor(c)
+													handleColorChange(c)
 												}
 												style={{
 													backgroundColor: c.hex,
@@ -592,6 +650,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 					</div>
 				</div>
 
+				{/* Similar Models Grid */}
 				<div className="mt-16 pt-12 border-t border-gray-200">
 					<h3 className="text-xl sm:text-2xl font-black text-gray-950 mb-6">
 						Similar{" "}

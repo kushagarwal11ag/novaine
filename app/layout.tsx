@@ -16,6 +16,30 @@ export const metadata: Metadata = {
 	icons: {
 		icon: "/assets/images/favicon.png",
 	},
+	openGraph: {
+		type: "website",
+		locale: "en_IN",
+		url: "https://novaine.vercel.app",
+		siteName: "Novaine Bikes",
+		title: "Novaine Bikes — Premium Kids & Ranger Bicycles | Ludhiana",
+		description:
+			"Precision engineered bicycles manufactured in India. Explore our extensive range of kids and ranger models.",
+		images: [
+			{
+				url: "/assets/images/hero_slide_1.jpg",
+				width: 1200,
+				height: 630,
+				alt: "Novaine Bikes, Ludhiana",
+			},
+		],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Novaine Bikes — Premium Kids & Ranger Bicycles",
+		description:
+			"Precision engineered bicycles manufactured in Ludhiana, India.",
+		images: ["/assets/images/hero_slide_1.jpg"],
+	},
 };
 
 export default function RootLayout({

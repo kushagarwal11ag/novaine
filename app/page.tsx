@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/products";
 import { ArrowRight, Factory } from "lucide-react";
 import SafeImage from "@/components/SafeImage";
+import Image from "next/image";
 
 export default function HomePage() {
 	const kidsBikes = PRODUCTS.filter((p) => p.categorySlug === "kids");
@@ -222,7 +223,7 @@ export default function HomePage() {
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<SafeImage
+								<Image
 									src="/assets/images/green-building-icon.png"
 									alt="Green Building"
 									width={64}
@@ -246,7 +247,7 @@ export default function HomePage() {
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<SafeImage
+								<Image
 									src="/assets/images/30-years-icon.png"
 									alt="30+ Years Heritage"
 									width={64}
@@ -268,7 +269,7 @@ export default function HomePage() {
 
 						<div className="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-8 text-center hover:border-novaine-yellow transition-all duration-300">
 							<div className="w-16 h-16 rounded-full bg-white/5 border flex items-center justify-center mx-auto mb-5">
-								<SafeImage
+								<Image
 									src="/assets/images/support-icon.png"
 									alt="Hassle Free Support"
 									width={64}
