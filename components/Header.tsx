@@ -28,6 +28,30 @@ export default function Header() {
 		router.push(`/bicycles/${productId}`);
 	};
 
+	const handleSearchSubmit = (e?: React.FormEvent) => {
+		if (e) e.preventDefault();
+		const q = searchQuery.trim();
+		if (!q) return;
+
+		// Check for exact model match (e.g. user typed "kombat" or "boomer")
+		const exactMatch = PRODUCTS.find(
+			(p) =>
+				p.name.toLowerCase() === q.toLowerCase() ||
+				p.id.toLowerCase() === q.toLowerCase(),
+		);
+
+		setIsSearchOpen(false);
+		setMobileMenuOpen(false);
+
+		if (exactMatch) {
+			// Exact match: Takes user directly to that model's dedicated page!
+			router.push(`/bicycles/${exactMatch.id}`);
+		} else {
+			// Broad query: Takes user to the dedicated ranked search page!
+			router.push(`/search?q=${encodeURIComponent(q)}`);
+		}
+	};
+
 	useEffect(() => {
 		if (searchQuery.trim().length >= 2) {
 			const q = searchQuery.toLowerCase();
@@ -37,7 +61,8 @@ export default function Header() {
 					p.category.toLowerCase().includes(q) ||
 					p.sizes.some((s) => s.toLowerCase().includes(q)),
 			);
-			setSearchResults(matches);
+			// Only show top 4-5 results in live autocomplete dropdown!
+			setSearchResults(matches.slice(0, 5));
 			setIsSearchOpen(true);
 		} else {
 			setSearchResults([]);
@@ -191,6 +216,11 @@ export default function Header() {
 								type="text"
 								value={searchQuery}
 								onChange={(e) => setSearchQuery(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") {
+										handleSearchSubmit();
+									}
+								}}
 								placeholder="Search models"
 								className="w-full bg-gray-100 focus:bg-white text-xs md:text-sm pl-9 pr-4 py-2 rounded-full border border-transparent focus:border-novaine-purple focus:ring-2 focus:ring-novaine-purple/20 outline-none transition-all"
 							/>

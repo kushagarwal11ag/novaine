@@ -46,21 +46,28 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		product.variants && product.variants.length > 0,
 	);
 
-	// 1. Preload all color images in the background on mount
+	// Idle Preloader: Waits for the main image to finish first
 	useEffect(() => {
 		if (!product.colors || product.colors.length <= 1) return;
 
-		product.colors.forEach((c) => {
-			if (c.imgSide) {
-				const imgSide = new window.Image();
-				imgSide.src = c.imgSide;
-			}
-			if (c.imgFront) {
-				const imgFront = new window.Image();
-				imgFront.src = c.imgFront;
-			}
-		});
-	}, [product.colors]);
+		// Wait 1.5 seconds after page mount so the main hero photo has 100% bandwidth
+		const timer = setTimeout(() => {
+			const requestIdle =
+				window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+
+			requestIdle(() => {
+				product.colors?.forEach((c) => {
+					// Only preload side angles of other colors
+					if (c.name !== selectedColor.name && c.imgSide) {
+						const img = new window.Image();
+						img.src = c.imgSide;
+					}
+				});
+			});
+		}, 1500);
+
+		return () => clearTimeout(timer);
+	}, [product.colors, selectedColor.name]);
 
 	// Color change handler
 	const handleColorChange = (c: typeof selectedColor) => {

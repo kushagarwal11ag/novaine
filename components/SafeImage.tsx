@@ -19,9 +19,14 @@ export default function SafeImage({
 }: SafeImageProps) {
 	const [isLoaded, setIsLoaded] = useState(false);
 
+	const defaultContainer = fill
+		? "relative w-full h-full overflow-hidden"
+		: "relative inline-flex shrink-0 items-center justify-center overflow-hidden";
+
 	return (
 		<div
-			className={`relative overflow-hidden ${containerClassName || "w-full h-full"}`}
+			className={`${defaultContainer} ${containerClassName}`}
+			style={!fill && width && height ? { width, height } : undefined}
 		>
 			{!isLoaded && (
 				<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-10" />

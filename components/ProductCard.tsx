@@ -20,21 +20,13 @@ export default function ProductCard({ product }: { product: Product }) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [isSwitching, setIsSwitching] = useState(false);
 
-	// 1. Preload all color images in the background on mount
-	useEffect(() => {
-		if (!product.colors || product.colors.length <= 1) return;
-
-		product.colors.forEach((c) => {
-			if (c.imgSide) {
-				const imgSide = new window.Image();
-				imgSide.src = c.imgSide;
-			}
-			if (c.imgFront) {
-				const imgFront = new window.Image();
-				imgFront.src = c.imgFront;
-			}
-		});
-	}, [product.colors]);
+	// 1. Preload ONLY when user hovers over a swatch
+	const preloadSwatch = (imgUrl: string) => {
+		if (typeof window !== "undefined" && imgUrl) {
+			const img = new window.Image();
+			img.src = imgUrl;
+		}
+	};
 
 	// 2. Handle swatch click with instant loading feedback
 	const handleColorChange = (c: typeof selectedColor) => {
@@ -108,6 +100,10 @@ export default function ProductCard({ product }: { product: Product }) {
 							<button
 								key={c.name}
 								title={c.name}
+								onMouseEnter={() => {
+									preloadSwatch(c.imgSide);
+									preloadSwatch(c.imgFront);
+								}}
 								onClick={() => handleColorChange(c)}
 								style={{ backgroundColor: c.hex }}
 								className={
