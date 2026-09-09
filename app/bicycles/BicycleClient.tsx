@@ -185,7 +185,7 @@ function CatalogContent() {
 			{/* Main Catalog Layout */}
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 				<div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-					// 1. DESKTOP SIDEBAR (Visible only on lg screens & above)
+					{/* 1. DESKTOP SIDEBAR (Visible only on lg screens & above) */}
 					<aside className="hidden lg:block bg-white rounded-2xl border border-gray-200 p-6 shadow-sm sticky top-24">
 						<div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
 							<h3 className="font-bold text-gray-900 text-base flex items-center gap-2">
@@ -211,7 +211,7 @@ function CatalogContent() {
 						<FilterControls />
 					</aside>
 
-					// 2. PRODUCT GRID MAIN AREA
+					{/* 2. PRODUCT GRID MAIN AREA */}
 					<main className="lg:col-span-3">
 						{/* Top Control Bar with Count, Mobile Filter Button, and Sort */}
 						<div className="flex flex-wrap items-center justify-between gap-4 mb-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
@@ -287,7 +287,7 @@ function CatalogContent() {
 				</div>
 			</div>
 
-			// 3. MOBILE FILTER SLIDE-OVER DRAWER
+			{/* 3. MOBILE FILTER SLIDE-OVER DRAWER */}
 			{isMobileFilterOpen && (
 				<div className="fixed inset-0 z-50 flex lg:hidden">
 					{/* Backdrop Overlay */}

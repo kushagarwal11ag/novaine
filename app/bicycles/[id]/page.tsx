@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			title: `${product.name} | Novaine Bikes`,
 			description: product.desc,
-			images: [{ url: product.imageSide }],
+			images: [{ url: product.image }],
 		},
 	};
 }

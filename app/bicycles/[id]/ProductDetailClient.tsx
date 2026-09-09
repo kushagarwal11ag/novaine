@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Product, PRODUCTS, ProductVariant } from "@/data/products";
+import { Product, PRODUCTS, ProductVariant, ProductColor  } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import ProductGallery from "@/components/ProductGallery";
 import { useEnquiry } from "@/context/EnquiryContext";
 import {
 	CheckCircle2,
@@ -18,6 +19,8 @@ import {
 } from "lucide-react";
 
 export default function ProductDetailPage({ product }: { product: Product }) {
+	const galleryRef = useRef<HTMLDivElement>(null);
+
 	const params = useParams();
 	const modelId = params?.id as string;
 	const { openEnquiry } = useEnquiry();
@@ -28,19 +31,17 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 	const [selectedTyreType, setSelectedTyreType] = useState<string>("");
 	const [selectedTyreSize, setSelectedTyreSize] = useState<string>("");
 	const [selectedBrakeType, setSelectedBrakeType] = useState<string>("");
-	const [selectedColor, setSelectedColor] = useState(
-		product.colors?.[0] || {
-			name: "Standard",
-			hex: "#333",
-			imgSide: product.imageSide,
-			imgFront: product.imageFront,
-		},
-	);
+	const [selectedColor, setSelectedColor] = useState<ProductColor>(
+	product.colors?.[0] || {
+		name: "Standard",
+		hex: "#333",
+		image: product.image,
+	},
+);
 
 	// Image loading & switching states
 	const [isImageLoading, setIsImageLoading] = useState(true);
 	const [isSwitching, setIsSwitching] = useState(false);
-	const [activeAngle, setActiveAngle] = useState<"side" | "front">("side");
 
 	const hasVariants = Boolean(
 		product.variants && product.variants.length > 0,
@@ -58,9 +59,9 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 			requestIdle(() => {
 				product.colors?.forEach((c) => {
 					// Only preload side angles of other colors
-					if (c.name !== selectedColor.name && c.imgSide) {
+					if (c.name !== selectedColor.name && c.image) {
 						const img = new window.Image();
-						img.src = c.imgSide;
+						img.src = c.image;
 					}
 				});
 			});
@@ -69,18 +70,21 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		return () => clearTimeout(timer);
 	}, [product.colors, selectedColor.name]);
 
+	// Helper to jump to top on mobile (< 1024px)
+	const scrollToGalleryOnMobile = () => {
+		if (typeof window !== "undefined" && window.innerWidth < 1024) {
+			galleryRef.current?.scrollIntoView({
+				behavior: "smooth",
+				block: "start",
+			});
+		}
+	};
+
 	// Color change handler
 	const handleColorChange = (c: typeof selectedColor) => {
 		if (c.name === selectedColor.name) return;
-		setIsSwitching(true);
 		setSelectedColor(c);
-	};
-
-	// Angle change handler
-	const handleAngleChange = (angle: "side" | "front") => {
-		if (angle === activeAngle) return;
-		setIsSwitching(true);
-		setActiveAngle(angle);
+		scrollToGalleryOnMobile();
 	};
 
 	// Available Tyre Types for selected Wheel Size
@@ -195,22 +199,6 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 		? currentVariant.isInStock
 		: (product.isInStock ?? true);
 
-	// Dynamic Image Resolution
-	const resolvedImage = useMemo(() => {
-		if (activeAngle === "front") {
-			return (
-				currentVariant?.imageFront ||
-				selectedColor?.imgFront ||
-				product.imageFront
-			);
-		}
-		return (
-			currentVariant?.imageSide ||
-			selectedColor?.imgSide ||
-			product.imageSide
-		);
-	}, [currentVariant, selectedColor, product, activeAngle]);
-
 	// Format pre-filled WhatsApp enquiry payload
 	const fullConfigString = useMemo(() => {
 		let config = `${product.name} (Size: ${selectedSize}`;
@@ -260,87 +248,19 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 					{/* LEFT COLUMN: MULTI-ANGLE IMAGE GALLERY */}
-					<div className="bg-white rounded-3xl border border-gray-200 p-6 shadow-sm lg:sticky top-24">
-						{/* Main Image View */}
-						<div className="relative w-full h-72 sm:h-96 bg-gray-50/80 rounded-2xl overflow-hidden flex items-center justify-center p-4 mb-4">
-							{/* Initial Skeleton Loader */}
-							{isImageLoading && (
-								<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-10">
-									<div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
-								</div>
-							)}
-
-							{/* Swatch / Angle Switching Overlay */}
-							{isSwitching && (
-								<div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center z-20 transition-opacity">
-									<div className="w-8 h-8 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
-								</div>
-							)}
-
-							<Image
-								src={resolvedImage}
-								alt={product.name}
-								width={600}
-								height={450}
-								priority
-								onLoad={() => {
-									setIsImageLoading(false);
-									setIsSwitching(false);
-								}}
-								className={`max-h-[92%] max-w-[92%] object-contain transition-all duration-300 drop-shadow-md ${
-									isSwitching
-										? "opacity-30 scale-98"
-										: "opacity-100 scale-100"
-								}`}
-							/>
-						</div>
-
-						{/* Angle Thumbnails */}
-						<div className="flex items-center gap-3">
-							<button
-								type="button"
-								onClick={() => handleAngleChange("side")}
-								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer overflow-hidden ${
-									activeAngle === "side"
-										? "border-novaine-purple shadow-sm ring-2 ring-novaine-purple/20"
-										: "border-gray-200 hover:border-gray-400"
-								}`}
-							>
-								<Image
-									src={
-										currentVariant?.imageSide ||
-										selectedColor?.imgSide ||
-										product.imageSide
-									}
-									alt="Side Angle"
-									width={80}
-									height={80}
-									className="w-full h-full object-contain"
-								/>
-							</button>
-
-							<button
-								type="button"
-								onClick={() => handleAngleChange("front")}
-								className={`w-20 h-20 rounded-xl border-2 p-1.5 bg-gray-50 transition-all cursor-pointer overflow-hidden ${
-									activeAngle === "front"
-										? "border-novaine-purple shadow-sm ring-2 ring-novaine-purple/20"
-										: "border-gray-200 hover:border-gray-400"
-								}`}
-							>
-								<Image
-									src={
-										currentVariant?.imageFront ||
-										selectedColor?.imgFront ||
-										product.imageFront
-									}
-									alt="Front Angle"
-									width={80}
-									height={80}
-									className="w-full h-full object-contain"
-								/>
-							</button>
-						</div>
+					<div ref={galleryRef} className="scroll-mt-24">
+						<ProductGallery
+							product={product}
+							selectedColorName={selectedColor.name}
+							selectedBrakeType={selectedBrakeType}
+							selectedTyreSize={selectedTyreSize}
+							onSelectColor={(colorName) => {
+								const matched = product.colors?.find(
+									(c) => c.name === colorName,
+								);
+								if (matched) setSelectedColor(matched);
+							}}
+						/>
 					</div>
 
 					{/* RIGHT COLUMN: INFORMATION & CONFIGURATOR PANEL */}
@@ -396,8 +316,8 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 												key={size}
 												type="button"
 												onClick={() => {
-													setIsSwitching(true);
 													setSelectedSize(size);
+													scrollToGalleryOnMobile();
 												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
 													selectedSize === size
@@ -426,7 +346,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 												key={tType}
 												type="button"
 												onClick={() => {
-													setIsSwitching(true);
+													scrollToGalleryOnMobile();
 													setSelectedTyreType(tType);
 												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${
@@ -486,7 +406,7 @@ export default function ProductDetailPage({ product }: { product: Product }) {
 												key={bType}
 												type="button"
 												onClick={() => {
-													setIsSwitching(true);
+													scrollToGalleryOnMobile();
 													setSelectedBrakeType(bType);
 												}}
 												className={`px-3.5 py-1.5 rounded-lg font-bold border transition-all cursor-pointer ${

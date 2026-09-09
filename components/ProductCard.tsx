@@ -1,26 +1,27 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Product } from "@/data/products";
-import { ArrowRight } from "lucide-react";
+import { Product, ProductColor } from "@/data/products";
+import { ArrowUpRight } from "lucide-react";
 
 export default function ProductCard({ product }: { product: Product }) {
-	// Safe fallback for selectedColor
-	const [selectedColor, setSelectedColor] = useState(
+	const router = useRouter();
+
+	// Safe fallback for selectedColor using the clean .image property
+	const [selectedColor, setSelectedColor] = useState<ProductColor>(
 		product.colors?.[0] || {
 			name: "Standard",
 			hex: "#333",
-			imgSide: product.imageSide,
-			imgFront: product.imageFront,
+			image: product.image,
 		},
 	);
 
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [isSwitching, setIsSwitching] = useState(false);
 
-	// 1. Preload ONLY when user hovers over a swatch
+	// Preload image on swatch hover for instant response
 	const preloadSwatch = (imgUrl: string) => {
 		if (typeof window !== "undefined" && imgUrl) {
 			const img = new window.Image();
@@ -28,105 +29,127 @@ export default function ProductCard({ product }: { product: Product }) {
 		}
 	};
 
-	// 2. Handle swatch click with instant loading feedback
-	const handleColorChange = (c: typeof selectedColor) => {
+	// Switch color without navigating away from the card
+	const handleColorChange = (e: React.MouseEvent, c: ProductColor) => {
+		e.stopPropagation();
 		if (c.name === selectedColor.name) return;
-		setIsSwitching(true); // Triggers loading overlay
+		setIsSwitching(true);
 		setSelectedColor(c);
 	};
 
 	return (
-		<div className="product-card group bg-white rounded-2xl border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 p-5 flex flex-col justify-between">
-			<div>
-				<div className="flex items-center justify-between gap-2 mb-3">
-					<span className="text-[11px] font-bold uppercase tracking-wider text-novaine-purple bg-novaine-purple-light px-2.5 py-0.5 rounded-full">
+		<div
+			onClick={() => router.push(`/bicycles/${product.id}`)}
+			className="product-card group relative bg-white rounded-3xl border border-gray-200/80 hover:border-novaine-purple/50 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 overflow-hidden cursor-pointer select-none flex flex-col justify-between"
+		>
+			{/* ======================================================== */}
+			{/* HERO IMAGE STAGE (WITH SMOOTH HOVER ZOOM)                 */}
+			{/* ======================================================== */}
+			<div className="relative w-full h-64 sm:h-72 bg-gradient-to-b from-gray-100/70 via-gray-50 to-gray-100/50 flex items-center justify-center overflow-hidden">
+				{/* Floating Category & Wheel Size Badges */}
+				<div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between z-20 pointer-events-none">
+					<span className="text-[10px] font-extrabold uppercase tracking-wider text-novaine-purple bg-white/95 backdrop-blur-md px-3 py-1 rounded-full border border-novaine-purple/20 shadow-xs">
 						{product.category}
 					</span>
-					<span className="text-xs font-bold text-gray-800 bg-gray-100 px-2.5 py-0.5 rounded-full">
-						{product.sizes.join(" | ")}
+
+					<span className="text-[11px] font-bold text-gray-800 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full border border-gray-200/80 shadow-xs">
+						{product.sizes.join(" • ")}
 					</span>
 				</div>
 
-				<h3 className="text-lg font-extrabold text-gray-950 group-hover:text-novaine-purple transition-colors">
-					<Link href={"/bicycles/" + product.id}>{product.name}</Link>
-				</h3>
+				{/* Loading Skeleton */}
+				{!isLoaded && (
+					<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-10">
+						<div className="w-7 h-7 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
+					</div>
+				)}
 
-				<div className="relative w-full h-48 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center p-3 mb-4">
-					{/* First Load Skeleton */}
-					{!isLoaded && (
-						<div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 animate-pulse flex items-center justify-center z-0">
-							<div className="w-6 h-6 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
-						</div>
-					)}
+				{/* Color Switching Overlay */}
+				{isSwitching && (
+					<div className="absolute inset-0 bg-white/50 backdrop-blur-[1px] flex items-center justify-center z-10 transition-opacity">
+						<div className="w-7 h-7 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
+					</div>
+				)}
 
-					{isSwitching && (
-						<div className="absolute inset-0 bg-white/60 backdrop-blur-[1px] flex items-center justify-center z-10 transition-opacity">
-							<div className="w-6 h-6 rounded-full border-2 border-gray-300 border-t-novaine-purple animate-spin" />
-						</div>
-					)}
+				{/* 
+				  Single Bicycle Image:
+				  Zooms smoothly (scale-105) and gains drop-shadow on card hover
+				*/}
+				<Image
+					key={selectedColor.image}
+					src={selectedColor.image}
+					alt={`${product.name} ${selectedColor.name}`}
+					width={500}
+					height={380}
+					onLoad={() => {
+						setIsLoaded(true);
+						setIsSwitching(false);
+					}}
+					onError={() => {
+						setIsLoaded(true);
+						setIsSwitching(false);
+					}}
+					className={`w-[94%] h-[94%] object-contain drop-shadow-md group-hover:drop-shadow-2xl group-hover:scale-105 transition-all duration-500 z-1 ${
+						isSwitching ? "opacity-30 scale-95" : "opacity-100"
+					}`}
+				/>
 
-					<Image
-						src={selectedColor.imgSide}
-						alt={product.name + " Side"}
-						width={400}
-						height={300}
-						onLoad={() => {
-							setIsLoaded(true);
-							setIsSwitching(false);
-						}}
-						className={`img-side absolute max-h-[85%] max-w-[85%] object-contain transition-all duration-500 z-1 ${
-							isSwitching
-								? "opacity-30 scale-95"
-								: "opacity-100 scale-100"
-						}`}
-					/>
+				{/* Subtle Ambient Glow */}
+				<div className="absolute w-44 h-44 rounded-full bg-novaine-purple/5 blur-3xl pointer-events-none" />
+			</div>
 
-					{/* Front Image (Hover View) */}
-					<Image
-						src={selectedColor.imgFront}
-						alt={product.name + " Front"}
-						width={400}
-						height={300}
-						className="img-front absolute max-h-[85%] max-w-[85%] object-contain opacity-0 scale-95 transition-all duration-500 z-2"
-					/>
+			{/* ======================================================== */}
+			{/* TITLE, SPECS & COLOR SWATCHES BAR                        */}
+			{/* ======================================================== */}
+			<div className="p-4 bg-white border-t border-gray-100 space-y-3">
+				{/* Title & Explore Arrow */}
+				<div className="flex items-center justify-between gap-3">
+					<div>
+						<h3 className="text-lg sm:text-xl font-black text-gray-950 group-hover:text-novaine-purple transition-colors tracking-tight leading-tight">
+							{product.name}
+						</h3>
+						<p className="text-xs font-semibold text-gray-500 mt-0.5">
+							{product.speeds} • {product.brakes}
+						</p>
+					</div>
+
+					<div className="w-8 h-8 rounded-full bg-gray-100 group-hover:bg-novaine-purple text-gray-700 group-hover:text-white transition-all duration-300 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110">
+						<ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+					</div>
 				</div>
 
-				<div className="flex items-center gap-2 mb-3">
-					<span className="text-xs font-medium text-gray-500">
-						Colours:
-					</span>
+				{/* Badges + Interactive Swatches */}
+				<div className="pt-2 border-t border-gray-100/80 flex items-center justify-between gap-2 flex-wrap">
+					<div className="flex items-center gap-1.5">
+						<span className="text-[10px] font-bold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-md">
+							{product.ageGroup}
+						</span>
+						{product.tyreType && (
+							<span className="text-[10px] font-bold bg-novaine-purple-light/50 text-novaine-purple px-2 py-0.5 rounded-md">
+								{product.tyreType}
+							</span>
+						)}
+					</div>
+
+					{/* Swatches (Click to swap color in-place) */}
 					<div className="flex items-center gap-1.5">
 						{product.colors?.map((c) => (
 							<button
 								key={c.name}
+								type="button"
 								title={c.name}
-								onMouseEnter={() => {
-									preloadSwatch(c.imgSide);
-									preloadSwatch(c.imgFront);
-								}}
-								onClick={() => handleColorChange(c)}
+								onMouseEnter={() => preloadSwatch(c.image)}
+								onClick={(e) => handleColorChange(e, c)}
 								style={{ backgroundColor: c.hex }}
-								className={
-									"w-5 h-5 rounded-full border-2 border-opacity-10 border-black shadow-sm transition-transform cursor-pointer " +
-									(selectedColor.name === c.name
-										? "ring-2 ring-novaine-purple scale-110"
-										: "hover:scale-105")
-								}
+								className={`w-4 h-4 rounded-full border-2 border-white shadow-xs transition-all cursor-pointer ${
+									selectedColor.name === c.name
+										? "ring-2 ring-novaine-purple scale-125 shadow-sm"
+										: "hover:scale-110 opacity-80 hover:opacity-100"
+								}`}
 							/>
 						))}
 					</div>
 				</div>
-
-				<div className="flex flex-wrap gap-1.5 mb-5"></div>
-			</div>
-
-			<div className="pt-2 border-t border-gray-50">
-				<Link
-					href={"/bicycles/" + product.id}
-					className="w-full flex-1 inline-flex items-center justify-center gap-1 hover:bg-novaine-purple bg-gray-100 hover:text-white text-gray-800 text-xs font-bold py-2.5 rounded-lg transition-all"
-				>
-					View Details <ArrowRight className="w-3.5 h-3.5" />
-				</Link>
 			</div>
 		</div>
 	);

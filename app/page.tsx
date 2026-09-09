@@ -6,7 +6,6 @@ import HeroSlider from "@/components/HeroSlider";
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/products";
 import { ArrowRight, Factory } from "lucide-react";
-import SafeImage from "@/components/SafeImage";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -44,7 +43,7 @@ export default function HomePage() {
 							className="group bg-white rounded-2xl p-4 border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
 						>
 							<div className="relative h-44 rounded-xl overflow-hidden bg-gray-100 mb-4">
-								<SafeImage
+								<Image
 									src="/assets/images/cat_kids.jpg"
 									alt="Kids Bikes"
 									width={200}
@@ -72,7 +71,7 @@ export default function HomePage() {
 							className="group bg-white rounded-2xl p-4 border border-gray-100 hover:border-novaine-purple/40 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between"
 						>
 							<div className="relative h-44 rounded-xl overflow-hidden bg-gray-100 mb-4">
-								<SafeImage
+								<Image
 									src="/assets/images/cat_bicycles.jpg"
 									alt="Ranger & Adult Bikes"
 									width={200}
@@ -156,8 +155,8 @@ export default function HomePage() {
 						</div>
 
 						<div className="shrink-0 max-w-sm">
-							<SafeImage
-								src="/assets/images/bicycle/alpha-ylw.jpg"
+							<Image
+								src="/assets/images/bicycle/alpha/hero-neon-yellow.jpg"
 								alt="Novaine Bike Engineering"
 								width={200}
 								height={200}

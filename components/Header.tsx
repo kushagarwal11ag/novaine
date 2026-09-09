@@ -246,7 +246,7 @@ export default function Header() {
 												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
 											>
 												<SafeImage
-													src={p.imageSide}
+													src={p.image}
 													alt={p.name}
 													width={64}
 													height={64}
@@ -362,7 +362,7 @@ export default function Header() {
 												className="w-full text-left flex items-center gap-3 p-3 hover:bg-novaine-purple-light/40 active:bg-novaine-purple-light transition-colors cursor-pointer"
 											>
 												<SafeImage
-													src={p.imageSide}
+													src={p.image}
 													alt={p.name}
 													width={64}
 													height={64}
